@@ -3,11 +3,11 @@ import React from 'react';
 
 const UserProfile = ({ userData }) => {
   const router = useRouter();
-  const { user } = router.query;
+  const { username } = router.query;
 
   return (
     <div>
-      <h1>User Profile: {user}</h1>
+      <h1>User Profile: {username}</h1>
       <pre>{JSON.stringify(userData, null, 2)}</pre>
     </div>
   );
