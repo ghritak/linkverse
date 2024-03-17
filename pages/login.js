@@ -41,7 +41,7 @@ const LoginPage = () => {
         <div className={`grid grid-cols-2 ${loading ? 'opacity-50' : ''} `}>
           <div className='col-span-1 m-10'>
             <Image
-              src='/facebook.png'
+              src='/link128.png'
               alt='Example Image'
               width={46}
               height={46}
