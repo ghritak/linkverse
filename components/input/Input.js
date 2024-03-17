@@ -24,8 +24,8 @@ const Input = (props) => {
     >
       <div
         className={`absolute left-2 ${
-          isInputFocused ? '-top-3 text-sm text-blue-500' : 'top-[13px]'
-        } transition-all duration-200  bg-white px-2`}
+          isInputFocused ? '-top-2 text-xs text-blue-500' : 'top-[13px]'
+        } transition-all duration-200 bg-white px-2`}
       >
         <label
           className='cursor-text'

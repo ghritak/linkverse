@@ -36,9 +36,9 @@ const LoginPage = () => {
 
   return (
     <div className='w-screen h-screen flex justify-center items-center bg-[#f0f4f9]'>
-      <div className='bg-white w-[1000px] h-[380px] rounded-3xl overflow-hidden'>
+      <div className='bg-white w-[1000px] md:h-[380px] mx-8 sm:mx-[100px] rounded-3xl overflow-hidden'>
         {loading ? <LinearLoading /> : <div className='h-1' />}
-        <div className={`grid grid-cols-2 ${loading ? 'opacity-50' : ''} `}>
+        <div className={`md:grid grid-cols-2 ${loading ? 'opacity-50' : ''} `}>
           <div className='col-span-1 m-10'>
             <Image
               src='/link128.png'
@@ -50,7 +50,7 @@ const LoginPage = () => {
             <p>to continue to Linkverse</p>
           </div>
 
-          <div className='col-span-1 h-full flex-1 mt-10 mr-10'>
+          <div className='col-span-1 h-full flex-1 m-10 md:m-0 md:mt-10 md:mr-10'>
             <form
               onSubmit={handleLogin}
               className='h-full flex flex-col justify-between'
@@ -66,25 +66,29 @@ const LoginPage = () => {
                 />
                 <Input
                   label='Password'
-                  // type='password'
+                  type='password'
                   name='password'
                   value={formData.password}
                   onChange={handleInputChange}
                   required
                 />
                 <p className='text-blue-600 font-medium text-sm cursor-pointer'>
-                  Forgot password?
+                  Forgot password ?
                 </p>
                 <div className='mt-5'>
                   <p className='text-sm'>
-                    Not your computer? Use Guest mode to sign in privately.{' '}
                     <span className='text-blue-600 font-medium cursor-pointer'>
-                      Learn more about using Guest mode
+                      Learn more about using linkverse
+                    </span>
+                    <br />
+                    Don't have an account already?{' '}
+                    <span className='text-blue-600 font-medium cursor-pointer'>
+                      Sign up
                     </span>
                   </p>
                 </div>
               </div>
-              <div className='mt-auto'>
+              <div className='mt-10 md:mt-auto'>
                 <Button type='submit'>Log in</Button>
               </div>
             </form>
