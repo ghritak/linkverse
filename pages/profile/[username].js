@@ -6,7 +6,7 @@ import Image from 'next/image'
 import { FiEdit, FiLogOut } from 'react-icons/fi'
 import { BsThreeDotsVertical } from 'react-icons/bs'
 import Button from '../../components/button/Button'
-import LinkCard from '../../components/cards/LinkCard'
+import LinkCardEdit from '../../components/cards/LinkCardEdit'
 
 const UserProfile = () => {
   const router = useRouter()
@@ -106,6 +106,8 @@ const UserProfile = () => {
     console.log(links)
   }
 
+  const handleAddNewLink = () => {}
+
   return (
     <div className="bg-gradient-to-tr from-gray-500 via-gray-700 to-black w-screen  h-screen flex justify-center overflow-hidden">
       {!loading ? (
@@ -177,7 +179,7 @@ const UserProfile = () => {
           <div className="mt-20">
             {links.map((item, index) => {
               return (
-                <LinkCard
+                <LinkCardEdit
                   key={index}
                   index={index}
                   item={item}
@@ -189,6 +191,14 @@ const UserProfile = () => {
                 />
               )
             })}
+            {!isEditMode && (
+              <div
+                onClick={handleAddNewLink}
+                className="my-6 w-full text-center  border-[1px] py-3 rounded-lg text-white bg-gray-600 hover:scale-[102%] cursor-pointer transition-all duration-300"
+              >
+                Add new link +
+              </div>
+            )}
           </div>
           {isEditMode && (
             <div className="absolute flex-1 w-full bottom-10 left-0 px-10 sm:px-20">

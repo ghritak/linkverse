@@ -12,7 +12,7 @@
   resolved "https://registry.yarnpkg.com/@alloc/quick-lru/-/quick-lru-5.2.0.tgz#7bf68b20c0a350f936915fcae06f58e32007ce30"
   integrity sha512-UrcABB+4bUrFABwbluTIBErXwvbsU/V7TZWfmbgJfbkwiBuziS9gxdODUyuiecfdGQ85jglMW6juS3+z5TsKLw==
 
-"@babel/runtime@^7.23.2":
+"@babel/runtime@^7.23.2", "@babel/runtime@^7.24.0":
   version "7.24.0"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.24.0.tgz#584c450063ffda59697021430cb47101b085951e"
   integrity sha512-Chk32uHMg6TnQdvw2e9IlqPpFX/6NLuK0Ys2PqLb7/gL5uFn9mXvK715FGLlOLQrcO4qIkNHkvPGktzzXexsFw==
@@ -2487,6 +2487,13 @@ supports-preserve-symlinks-flag@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/supports-preserve-symlinks-flag/-/supports-preserve-symlinks-flag-1.0.0.tgz#6eda4bd344a3c94aea376d4cc31bc77311039e09"
   integrity sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==
+
+tailwind-merge@^2.2.2:
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/tailwind-merge/-/tailwind-merge-2.2.2.tgz#87341e7604f0e20499939e152cd2841f41f7a3df"
+  integrity sha512-tWANXsnmJzgw6mQ07nE3aCDkCK4QdT3ThPMCzawoYA2Pws7vSTCvz3Vrjg61jVUGfFZPJzxEP+NimbcW+EdaDw==
+  dependencies:
+    "@babel/runtime" "^7.24.0"
 
 tailwindcss@^3.4.1:
   version "3.4.1"
