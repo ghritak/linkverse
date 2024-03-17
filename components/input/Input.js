@@ -68,7 +68,7 @@ const Input = (props) => {
   return (
     <div
       onClick={focusInput}
-      className={`relative group -lg mb-4 bg-white cursor-text ${
+      className={`relative group -lg mb-4 bg-white cursor-text overflow-hidden ${
         isInputFocused ? 'focus-within:border-blue-500' : ''
       }`}
     >

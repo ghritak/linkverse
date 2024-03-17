@@ -1,0 +1,13 @@
+@keyframes linearLoading {
+  0% {
+    transform: translateX(-200%);
+  }
+  100% {
+    transform: translateX(250%);
+  }
+}
+
+/* Apply the animation to the loading bar */
+.animate-linearLoading {
+  animation: linearLoading 1.8s ease-in-out infinite;
+}
