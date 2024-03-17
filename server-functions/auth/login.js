@@ -1,19 +1,17 @@
-// api.js
-
-export const login = async (username, password) => {
+export const login = async (formData) => {
   try {
-    const response = await fetch('/api/login', {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ username, password }),
+      body: JSON.stringify(formData),
     });
+    const data = await response.json();
     if (response.ok) {
-      const data = await response.json();
       return data;
     } else {
-      throw new Error('Failed to log in');
+      throw new Error(data.message || 'Failed to log in');
     }
   } catch (error) {
     throw new Error(error.message);

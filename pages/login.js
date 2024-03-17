@@ -6,17 +6,27 @@ import LinearLoading from '../components/loading/LinearLoading';
 import { login } from '../server-functions/auth/login';
 
 const LoginPage = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+  });
   const [loading, setLoading] = useState(false);
+
+  const handleInputChange = (e) => {
+    const { name, value, type } = e.target;
+
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: type === 'file' ? e.target.files[0] : value,
+    }));
+  };
 
   const handleLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
     try {
-      const data = await login(username, password);
+      const data = await login(formData);
       console.log('Login successful:', data);
-      //   router.push('/dashboard');
     } catch (error) {
       console.error('Error logging in:', error);
     } finally {
@@ -49,17 +59,17 @@ const LoginPage = () => {
                 <Input
                   label='Email'
                   type='text'
-                  id='username'
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
+                  name='email'
+                  value={formData.email}
+                  onChange={handleInputChange}
                   required
                 />
                 <Input
                   label='Password'
-                  type='password'
-                  id='password'
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  // type='password'
+                  name='password'
+                  value={formData.password}
+                  onChange={handleInputChange}
                   required
                 />
                 <p className='text-blue-600 font-medium text-sm cursor-pointer'>
