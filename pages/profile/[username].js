@@ -5,8 +5,9 @@ import Image from 'next/image'
 import { FiEdit, FiLogOut } from 'react-icons/fi'
 import { BsThreeDotsVertical } from 'react-icons/bs'
 import Button from '../../components/button/Button'
-import LinkCardEdit from '../../components/cards/LinkCardEdit'
 import { getUserProfile } from '../../server-functions/profile/getUserProfile'
+import LinkCardEdit from '../../components/cards/LinkCardEdit'
+import { postLinks } from '../../server-functions/profile/postLinks'
 
 const UserProfile = () => {
   const router = useRouter()
@@ -18,6 +19,7 @@ const UserProfile = () => {
   const [isEditMode, setEditMode] = useState(false)
   const [links, setLinks] = useState([])
   const [renderLinView, setRenderLinkView] = useState(0)
+  const [token, setToken] = useState(null)
 
   useEffect(() => {
     const user = localStorage.getItem('USER')
@@ -25,6 +27,7 @@ const UserProfile = () => {
     if (!user && !token) {
       router.push('/login')
     } else {
+      setToken(token)
       fetchUserData(token)
     }
   }, [username])
@@ -94,16 +97,35 @@ const UserProfile = () => {
   }
 
   const handleInputChange = (e, index) => {
-    const { value } = e.target
-    setLinks((prevLinks) => {
-      const updatedLinks = [...prevLinks]
-      updatedLinks[index] = { ...updatedLinks[index], name: value }
-      return updatedLinks
-    })
+    const { value, name } = e.target
+    if (name === 'name') {
+      setLinks((prevLinks) => {
+        const updatedLinks = [...prevLinks]
+        updatedLinks[index] = { ...updatedLinks[index], name: value }
+        return updatedLinks
+      })
+    }
+    if (name === 'link') {
+      setLinks((prevLinks) => {
+        const updatedLinks = [...prevLinks]
+        updatedLinks[index] = { ...updatedLinks[index], link: value }
+        return updatedLinks
+      })
+    }
   }
 
-  const handleSave = () => {
-    console.log(links)
+  const handleSave = async () => {
+    const data = { links }
+    if (token && userData) {
+      try {
+        const response = await postLinks(userData?.user_id, data, token)
+        console.log(response)
+        setUserData((prev) => ({ ...prev, links: links }))
+        setEditMode(false)
+      } catch (error) {
+        console.error('Error fetching user data:', error)
+      }
+    }
   }
 
   const handleAddNewLink = () => {}
@@ -181,20 +203,21 @@ const UserProfile = () => {
               </div>
 
               <div className="mt-20">
-                {links.map((item, index) => {
-                  return (
-                    <LinkCardEdit
-                      key={index}
-                      index={index}
-                      item={item}
-                      handleExternalLinkClick={handleExternalLinkClick}
-                      isEditMode={isEditMode}
-                      handleInputChange={handleInputChange}
-                      handleClickDot={handleClickDot}
-                      renderLinView={renderLinView}
-                    />
-                  )
-                })}
+                {links &&
+                  links.map((item, index) => {
+                    return (
+                      <LinkCardEdit
+                        key={index}
+                        index={index}
+                        item={item}
+                        handleExternalLinkClick={handleExternalLinkClick}
+                        isEditMode={isEditMode}
+                        handleInputChange={handleInputChange}
+                        handleClickDot={handleClickDot}
+                        renderLinView={renderLinView}
+                      />
+                    )
+                  })}
                 {!isEditMode && (
                   <div
                     onClick={handleAddNewLink}
@@ -214,7 +237,7 @@ const UserProfile = () => {
             </div>
           ) : (
             <div className="h-screen flex flex-col items-center justify-center text-white">
-              <p>You aren&apos;t currently logged in.</p>
+              <p>You aren&apos;t currently logged in as {username}</p>
               <p
                 onClick={() => router.push('/login')}
                 className="text-blue-500 font-medium cursor-pointer mt-3"

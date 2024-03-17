@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import LinkCardEdit from '../components/cards/LinkCardEdit'
+import LinkCard from '../components/cards/LinkCard'
 import Image from 'next/image'
 import Button from '../components/button/Button'
 import { MdOutlineAddLink } from 'react-icons/md'
@@ -48,7 +48,7 @@ const UserProfile = ({ userData }) => {
               {userData &&
                 userData.links.map((item, index) => {
                   return (
-                    <LinkCardEdit
+                    <LinkCard
                       key={index}
                       item={item}
                       handleClickDot={handleClickDot}
