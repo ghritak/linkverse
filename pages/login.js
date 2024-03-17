@@ -1,28 +1,34 @@
 import React, { useState } from 'react';
-import { useRouter } from 'next/router';
 import Input from '../components/input/Input';
 import Image from 'next/image';
 import Button from '../components/button/Button';
 import LinearLoading from '../components/loading/LinearLoading';
+import { login } from '../server-functions/auth/login';
 
 const LoginPage = () => {
-  const router = useRouter();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    console.log('Logging in with:', username, password);
-
-    // router.push('/dashboard');
+    setLoading(true);
+    try {
+      const data = await login(username, password);
+      console.log('Login successful:', data);
+      //   router.push('/dashboard');
+    } catch (error) {
+      console.error('Error logging in:', error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <div className='w-screen h-screen flex justify-center items-center bg-[#f0f4f9]'>
-      <div className='bg-white w-[900px] h-[380px] rounded-3xl overflow-hidden'>
-        {loading && <LinearLoading />}
-        <div className=' grid grid-cols-2'>
+      <div className='bg-white w-[1000px] h-[380px] rounded-3xl overflow-hidden'>
+        {loading ? <LinearLoading /> : <div className='h-1' />}
+        <div className={`grid grid-cols-2 ${loading ? 'opacity-50' : ''} `}>
           <div className='col-span-1 m-10'>
             <Image
               src='/facebook.png'
@@ -34,10 +40,10 @@ const LoginPage = () => {
             <p>to continue to Linkverse</p>
           </div>
 
-          <div className='col-span-1 m-10 '>
+          <div className='col-span-1 h-full flex-1 mt-10 mr-10'>
             <form
               onSubmit={handleLogin}
-              className='flex flex-col h-full bg-green-300'
+              className='h-full flex flex-col justify-between'
             >
               <div>
                 <Input
@@ -68,10 +74,8 @@ const LoginPage = () => {
                   </p>
                 </div>
               </div>
-              {/* This div will push the button to the bottom */}
-              <div className='flex-grow' />
-              <div>
-                <Button>Log in</Button>
+              <div className='mt-auto'>
+                <Button type='submit'>Log in</Button>
               </div>
             </form>
           </div>

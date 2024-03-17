@@ -68,7 +68,7 @@ const Input = (props) => {
   return (
     <div
       onClick={focusInput}
-      className={`relative group -lg mb-4 bg-white cursor-text overflow-hidden ${
+      className={`relative group -lg mb-4 bg-white cursor-text ${
         isInputFocused ? 'focus-within:border-blue-500' : ''
       }`}
     >
@@ -88,8 +88,10 @@ const Input = (props) => {
       <input
         ref={inputRef}
         {...props}
-        className={`w-full outline-none z-10 p-3 border-2 border-gray-300 rounded-lg ${
-          isInputFocused ? 'focus-within:border-blue-500' : ''
+        className={`w-full outline-none z-10 p-3 border-[1px] border-gray-400 rounded-lg ${
+          isInputFocused
+            ? 'focus-within:border-blue-500 border-[2px]'
+            : 'm-[1px]'
         }`}
         onFocus={focusInput}
         onBlur={blurInput}
