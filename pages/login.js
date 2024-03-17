@@ -11,13 +11,9 @@ const LoginPage = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    // Here you can implement your login logic, for example, sending a request to your backend
-    // with the entered username and password.
-    // If login is successful, you can redirect the user to another page using router.push('/dashboard');
-    // If login fails, you can show an error message to the user.
     console.log('Logging in with:', username, password);
-    // Example redirect to dashboard
-    router.push('/dashboard');
+
+    // router.push('/dashboard');
   };
 
   return (
@@ -30,41 +26,45 @@ const LoginPage = () => {
             width={46}
             height={46}
           />
-          <h1 className='text-4xl my-4'>Login</h1>
+          <h1 className='text-4xl my-4'>Log in</h1>
           <p>to continue to Linkverse</p>
         </div>
-        <div className='col-span-1 m-10'>
-          <form onSubmit={handleLogin} className='h-full bg-green-300'>
-            <Input
-              label='Email'
-              type='text'
-              id='username'
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              required
-            />
-            <Input
-              label='Password'
-              type='password'
-              id='password'
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-            <p className='text-blue-600 font-medium text-sm'>
-              Forgot password?
-            </p>
-            <div className='mt-5'>
-              <p className='text-sm'>
-                Not your computer? Use Guest mode to sign in privately.{' '}
-                <span className='text-blue-600 font-medium cursor-pointer'>
-                  Learn more about using Guest mode
-                </span>
+
+        <div className='col-span-1 m-10 '>
+          <form onSubmit={handleLogin} className='flex flex-col h-full'>
+            <div>
+              <Input
+                label='Email'
+                type='text'
+                id='username'
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                required
+              />
+              <Input
+                label='Password'
+                type='password'
+                id='password'
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+              <p className='text-blue-600 font-medium text-sm cursor-pointer'>
+                Forgot password?
               </p>
+              <div className='mt-5'>
+                <p className='text-sm'>
+                  Not your computer? Use Guest mode to sign in privately.{' '}
+                  <span className='text-blue-600 font-medium cursor-pointer'>
+                    Learn more about using Guest mode
+                  </span>
+                </p>
+              </div>
             </div>
-            {/* <button type='submit'>Login</button> */}
-            <div className='mt-auto'>
-              <Button>Login</Button>
+            {/* This div will push the button to the bottom */}
+            <div className='flex-grow' />
+            <div>
+              <Button>Log in</Button>
             </div>
           </form>
         </div>
