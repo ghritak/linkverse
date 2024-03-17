@@ -1,12 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/router'
-import { getUser } from '../../server-functions/profile/getUser'
 import Image from 'next/image'
 import { FiEdit, FiLogOut } from 'react-icons/fi'
 import { BsThreeDotsVertical } from 'react-icons/bs'
 import Button from '../../components/button/Button'
 import LinkCardEdit from '../../components/cards/LinkCardEdit'
+import { getUserProfile } from '../../server-functions/profile/getUserProfile'
 
 const UserProfile = () => {
   const router = useRouter()
@@ -21,18 +21,18 @@ const UserProfile = () => {
 
   useEffect(() => {
     const user = localStorage.getItem('USER')
-    if (!user) {
+    const token = localStorage.getItem('AUTH_TOKEN')
+    if (!user && !token) {
       router.push('/login')
     } else {
-      fetchUserData()
+      fetchUserData(token)
     }
   }, [username])
 
-  const fetchUserData = async () => {
+  const fetchUserData = async (token) => {
     if (username) {
       try {
-        const data = await getUser(username)
-        console.log(data)
+        const data = await getUserProfile(username, token)
         setUserData(data)
         setLinks(data?.links)
       } catch (error) {
@@ -111,103 +111,119 @@ const UserProfile = () => {
   return (
     <div className="bg-gradient-to-tr from-gray-500 via-gray-700 to-black w-screen  h-screen flex justify-center overflow-hidden">
       {!loading ? (
-        <div className="relative max-w-3xl  md:min-w-[700px] md:bg-gradient-to-tr from-gray-500 via-gray-700 to-black overflow-y-scroll w-full px-8 md:px-20">
-          <div className="absolute top-6 right-8 md:right-20">
-            {!isEditMode ? (
-              <button
-                onClick={() => setMenuVisible(!menuVisible)}
-                id="menuButton"
-                className=" cursor-pointer hover:scale-95 bg-white hover:text-black flex items-center justify-center text-white rounded-full p-2 transition-all duration-300"
-              >
-                <span id="menuButton">
-                  <BsThreeDotsVertical id="menuButton" color="black" />
-                </span>
-              </button>
-            ) : (
-              <button
-                onClick={handleCancel}
-                className="bg-white hover:text-white rounded-2xl hover:bg-transparent border-[1px] transition-all duration-300 px-4 py-1"
-              >
-                Cancel
-              </button>
-            )}
-          </div>
-          <div
-            ref={menuRef}
-            className={`absolute top-16 right-10 md:right-24 text-black transition-opacity duration-200 bg-white rounded-md z-20 ${
-              menuVisible ? '' : 'opacity-0 pointer-events-none'
-            }`}
-          >
-            <div
-              onClick={handleEditProfile}
-              className="flex items-center p-2.5 w-28 border-b-[1px] cursor-pointer hover:bg-gray-200 rounded-t-md transition-all duration-300 justify-between"
-            >
-              <p className="mr-2">Edit </p>
-              <FiEdit />
-            </div>
-            <div
-              onClick={handleLogout}
-              className="flex items-center p-2.5 w-28  cursor-pointer hover:bg-gray-200 rounded-b-md transition-all duration-300 justify-between"
-            >
-              <p className="mr-2">Log out </p>
-              <FiLogOut />
-            </div>
-          </div>
-
-          <div className="w-full flex justify-center mt-10">
-            {userData && userData?.profile_photo ? (
-              <Image
-                src={item.logo}
-                alt="Link logo"
-                width={64}
-                height={64}
-                className="w-10 h-10"
-              />
-            ) : (
-              <div className="w-40 h-40 bg-gray-300 rounded-full animate-pulse"></div>
-            )}
-          </div>
-
-          <div className="w-full flex-col justify-center items-center mt-10 text-white">
-            <p className="text-center text-lg mt-4">@{userData?.username}</p>
-            <h1 className="text-center text-3xl font-semibold">
-              {userData?.name}
-            </h1>
-            <p className="text-center text-lg mt-4">{userData?.bio}</p>
-          </div>
-
-          <div className="mt-20">
-            {links.map((item, index) => {
-              return (
-                <LinkCardEdit
-                  key={index}
-                  index={index}
-                  item={item}
-                  handleExternalLinkClick={handleExternalLinkClick}
-                  isEditMode={isEditMode}
-                  handleInputChange={handleInputChange}
-                  handleClickDot={handleClickDot}
-                  renderLinView={renderLinView}
-                />
-              )
-            })}
-            {!isEditMode && (
-              <div
-                onClick={handleAddNewLink}
-                className="my-6 w-full text-center  border-[1px] py-3 rounded-lg text-white bg-gray-600 hover:scale-[102%] cursor-pointer transition-all duration-300"
-              >
-                Add new link +
+        <>
+          {userData ? (
+            <div className="relative max-w-3xl  md:min-w-[700px] md:bg-gradient-to-tr from-gray-500 via-gray-700 to-black overflow-y-scroll w-full px-8 md:px-20">
+              <div className="absolute top-6 right-8 md:right-20">
+                {!isEditMode ? (
+                  <button
+                    onClick={() => setMenuVisible(!menuVisible)}
+                    id="menuButton"
+                    className=" cursor-pointer hover:scale-95 bg-white hover:text-black flex items-center justify-center text-white rounded-full p-2 transition-all duration-300"
+                  >
+                    <span id="menuButton">
+                      <BsThreeDotsVertical id="menuButton" color="black" />
+                    </span>
+                  </button>
+                ) : (
+                  <button
+                    onClick={handleCancel}
+                    className="bg-white hover:text-white rounded-2xl hover:bg-transparent border-[1px] transition-all duration-300 px-4 py-1"
+                  >
+                    Cancel
+                  </button>
+                )}
               </div>
-            )}
-          </div>
-          {isEditMode && (
-            <div className="absolute flex-1 w-full bottom-10 left-0 px-10 sm:px-20">
-              <Button onClick={handleSave} className={'w-full py-3'}>
-                Save
-              </Button>
+              <div
+                ref={menuRef}
+                className={`absolute top-16 right-10 md:right-24 text-black transition-opacity duration-200 bg-white rounded-md z-20 ${
+                  menuVisible ? '' : 'opacity-0 pointer-events-none'
+                }`}
+              >
+                <div
+                  onClick={handleEditProfile}
+                  className="flex items-center p-2.5 w-28 border-b-[1px] cursor-pointer hover:bg-gray-200 rounded-t-md transition-all duration-300 justify-between"
+                >
+                  <p className="mr-2">Edit </p>
+                  <FiEdit />
+                </div>
+                <div
+                  onClick={handleLogout}
+                  className="flex items-center p-2.5 w-28  cursor-pointer hover:bg-gray-200 rounded-b-md transition-all duration-300 justify-between"
+                >
+                  <p className="mr-2">Log out </p>
+                  <FiLogOut />
+                </div>
+              </div>
+
+              <div className="w-full flex justify-center mt-10">
+                {userData && userData?.profile_photo ? (
+                  <Image
+                    src={item.logo}
+                    alt="Link logo"
+                    width={64}
+                    height={64}
+                    className="w-10 h-10"
+                  />
+                ) : (
+                  <div className="w-40 h-40 bg-gray-300 rounded-full animate-pulse"></div>
+                )}
+              </div>
+
+              <div className="w-full flex-col justify-center items-center mt-10 text-white">
+                <p className="text-center text-lg mt-4">
+                  @{userData?.username}
+                </p>
+                <h1 className="text-center text-3xl font-semibold">
+                  {userData?.name}
+                </h1>
+                <p className="text-center text-lg mt-4">{userData?.bio}</p>
+              </div>
+
+              <div className="mt-20">
+                {links.map((item, index) => {
+                  return (
+                    <LinkCardEdit
+                      key={index}
+                      index={index}
+                      item={item}
+                      handleExternalLinkClick={handleExternalLinkClick}
+                      isEditMode={isEditMode}
+                      handleInputChange={handleInputChange}
+                      handleClickDot={handleClickDot}
+                      renderLinView={renderLinView}
+                    />
+                  )
+                })}
+                {!isEditMode && (
+                  <div
+                    onClick={handleAddNewLink}
+                    className="my-6 w-full text-center  border-[1px] py-3 rounded-lg text-white bg-gray-600 hover:scale-[102%] cursor-pointer transition-all duration-300"
+                  >
+                    Add new link +
+                  </div>
+                )}
+              </div>
+              {isEditMode && (
+                <div className="absolute flex-1 w-full bottom-10 left-0 px-10 sm:px-20">
+                  <Button onClick={handleSave} className={'w-full py-3'}>
+                    Save
+                  </Button>
+                </div>
+              )}
+            </div>
+          ) : (
+            <div className="h-screen flex flex-col items-center justify-center text-white">
+              <p>You aren&apos;t currently logged in.</p>
+              <p
+                onClick={() => router.push('/login')}
+                className="text-blue-500 font-medium cursor-pointer mt-3"
+              >
+                Click here to log in.
+              </p>
             </div>
           )}
-        </div>
+        </>
       ) : (
         <div className="h-screen flex items-center justify-center text-white">
           <p>Loading...</p>
