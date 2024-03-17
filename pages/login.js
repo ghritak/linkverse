@@ -4,8 +4,10 @@ import Image from 'next/image';
 import Button from '../components/button/Button';
 import LinearLoading from '../components/loading/LinearLoading';
 import { login } from '../server-functions/auth/login';
+import { useRouter } from 'next/router';
 
 const LoginPage = () => {
+  const router = useRouter();
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -26,7 +28,10 @@ const LoginPage = () => {
     setLoading(true);
     try {
       const data = await login(formData);
-      console.log('Login successful:', data);
+      localStorage.setItem('AUTH_TOKEN', data.token);
+      localStorage.setItem('USER', JSON.stringify(data.data));
+      router.push(`/profile/${data.data.username}`);
+      console.log(data.message);
     } catch (error) {
       console.error('Error logging in:', error);
     } finally {
