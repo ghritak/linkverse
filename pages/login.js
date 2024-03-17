@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
+import Input from '../components/input/Input';
 
 const LoginPage = () => {
   const router = useRouter();
@@ -18,32 +19,33 @@ const LoginPage = () => {
   };
 
   return (
-    <div>
-      <h1 className=''>Login</h1>
-
-      <form onSubmit={handleLogin}>
-        <div>
-          <label htmlFor='username'>Username:</label>
-          <input
-            type='text'
-            id='username'
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
+    <div className='w-screen h-screen flex justify-center items-center bg-[#f0f4f9]'>
+      <div className='bg-white w-[900px] h-[380px] rounded-3xl grid grid-cols-2'>
+        <div className='col-span-1 m-10'>
+          <h1 className=''>Login</h1>
         </div>
-        <div>
-          <label htmlFor='password'>Password:</label>
-          <input
-            type='password'
-            id='password'
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
+        <div className='col-span-1 m-10'>
+          <form onSubmit={handleLogin}>
+            <Input
+              label='Email'
+              type='text'
+              id='username'
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+            />
+            <Input
+              label='Password'
+              type='password'
+              id='password'
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+            <button type='submit'>Login</button>
+          </form>
         </div>
-        <button type='submit'>Login</button>
-      </form>
+      </div>
     </div>
   );
 };
