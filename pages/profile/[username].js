@@ -20,6 +20,7 @@ const UserProfile = () => {
   const [links, setLinks] = useState([])
   const [renderLinView, setRenderLinkView] = useState(0)
   const [token, setToken] = useState(null)
+  const [loadingSaving, setLoadingSaving] = useState(false)
 
   useEffect(() => {
     const user = localStorage.getItem('USER')
@@ -117,13 +118,16 @@ const UserProfile = () => {
   const handleSave = async () => {
     const data = { links }
     if (token && userData) {
+      setLoadingSaving(true)
       try {
         const response = await postLinks(userData?.user_id, data, token)
         console.log(response)
         setUserData((prev) => ({ ...prev, links: links }))
         setEditMode(false)
+        setLoadingSaving(false)
       } catch (error) {
         console.error('Error fetching user data:', error)
+        setLoadingSaving(false)
       }
     }
   }
@@ -227,9 +231,14 @@ const UserProfile = () => {
                   </div>
                 )}
               </div>
+
               {isEditMode && (
                 <div className="absolute flex-1 w-full bottom-10 left-0 px-10 sm:px-20">
-                  <Button onClick={handleSave} className={'w-full py-3'}>
+                  <Button
+                    loading={loadingSaving}
+                    onClick={handleSave}
+                    className={'w-full h-12'}
+                  >
                     Save
                   </Button>
                 </div>

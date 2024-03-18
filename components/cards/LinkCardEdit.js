@@ -46,7 +46,7 @@ const LinkCardEdit = ({
                 disabled={!isEditMode}
                 value={item?.name}
                 name="name"
-                className="bg-gray-600  outline-none mx-3 w-full"
+                className="bg-gray-600  outline-none mx-3 w-full rounded-sm pl-1"
                 onChange={(e) => handleInputChange(e, index)}
               />
             ) : (
@@ -55,7 +55,7 @@ const LinkCardEdit = ({
                 disabled={!isEditMode}
                 value={item?.link}
                 name="link"
-                className="bg-gray-600  outline-none mx-3 w-full"
+                className="bg-gray-600  outline-none mx-3 w-full rounded-sm pl-1"
                 onChange={(e) => handleInputChange(e, index)}
               />
             )}

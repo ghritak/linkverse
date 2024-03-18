@@ -1,4 +1,5 @@
 import { twMerge } from 'tailwind-merge'
+import CustomLoader from '../loading/CustomLoader'
 
 const Button = ({
   props,
@@ -7,11 +8,12 @@ const Button = ({
   className = '',
   onClick,
   type,
-  ref
+  ref,
+  loading = false
 }) => {
   const classes = twMerge(`
   bg-blue-500 text-white py-2 px-6 rounded-lg transition-all duration-300 ${
-    disabled ? 'opacity-50' : 'hover:bg-blue-600 '
+    disabled || loading ? 'opacity-50' : 'hover:bg-blue-600 '
   } ${className ?? ''}
   `)
   return (
@@ -19,11 +21,17 @@ const Button = ({
       type={type}
       ref={ref}
       onClick={onClick}
-      disabled={disabled}
+      disabled={disabled || loading}
       className={classes}
       {...props}
     >
-      {children}
+      {!loading ? (
+        children
+      ) : (
+        <div className="flex justify-center">
+          <CustomLoader size="30" color="white" />
+        </div>
+      )}
     </button>
   )
 }
