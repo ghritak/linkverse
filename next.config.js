@@ -5,8 +5,8 @@ const nextConfig = {
   remotePatterns: [
     {
       protocol: 'http',
-      hostname: '**',
-    },
+      hostname: '**'
+    }
   ],
   images: {
     domains: [
@@ -15,8 +15,9 @@ const nextConfig = {
       'bihubyte.com',
       '127.0.0.1',
       'localhost',
-    ],
-  },
-};
+      'static.wikia.nocookie.net'
+    ]
+  }
+}
 
-module.exports = nextConfig;
+module.exports = nextConfig

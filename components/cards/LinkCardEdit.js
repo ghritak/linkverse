@@ -5,7 +5,6 @@ import { IoLink, IoShareOutline } from 'react-icons/io5'
 const LinkCardEdit = ({
   item,
   index,
-  handleExternalLinkClick,
   isEditMode,
   handleInputChange,
   handleClickDot,
@@ -16,6 +15,12 @@ const LinkCardEdit = ({
   useEffect(() => {
     setLinkView(false)
   }, [renderLinView])
+
+  const handleExternalLinkClick = (event, link) => {
+    event.preventDefault()
+    if (isEditMode) return
+    window.open(link, '_blank')
+  }
 
   return (
     <div
