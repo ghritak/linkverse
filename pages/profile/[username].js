@@ -168,14 +168,14 @@ const UserProfile = () => {
               >
                 <div
                   onClick={handleEditProfile}
-                  className="flex items-center p-2.5 w-28 border-b-[1px] cursor-pointer hover:bg-gray-200 rounded-t-md transition-all duration-300 justify-between"
+                  className="flex items-center p-2.5 w-32 border-b-[1px] cursor-pointer hover:bg-gray-200 rounded-t-md transition-all duration-300 justify-between"
                 >
-                  <p className="mr-2">Edit </p>
+                  <p className="mr-2">Edit Links</p>
                   <FiEdit />
                 </div>
                 <div
                   onClick={handleLogout}
-                  className="flex items-center p-2.5 w-28  cursor-pointer hover:bg-gray-200 rounded-b-md transition-all duration-300 justify-between"
+                  className="flex items-center p-2.5 w-32  cursor-pointer hover:bg-gray-200 rounded-b-md transition-all duration-300 justify-between"
                 >
                   <p className="mr-2">Log out </p>
                   <FiLogOut />

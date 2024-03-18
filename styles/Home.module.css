@@ -88,21 +88,11 @@
     flex-direction: column;
   }
 }
-
+/* 
 .hide-scrollbar {
-  /* Hide scrollbar for Firefox */
-  /* Note: You can remove this if you don't need to support Firefox */
-  /* Note: This rule may not work in the future, as Firefox plans to implement scrollbar styling */
-  /* See: https://developer.mozilla.org/en-US/docs/Web/CSS/scrollbar-width */
-  /* See: https://bugzilla.mozilla.org/show_bug.cgi?id=619906 */
-  /* See: https://bugzilla.mozilla.org/show_bug.cgi?id=701407 */
-  /* See: https://bugzilla.mozilla.org/show_bug.cgi?id=935210 */
-
-  /* WebKit (Chrome, Safari) */
   ::-webkit-scrollbar {
     display: none;
   }
 
-  /* Hide scrollbar for IE, Edge */
   -ms-overflow-style: none;
-}
+} */

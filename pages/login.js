@@ -13,8 +13,10 @@ const LoginPage = () => {
     password: ''
   })
   const [loading, setLoading] = useState(false)
+  const [errorMessage, setErrorMessage] = useState('')
 
   const handleInputChange = (e) => {
+    if (errorMessage) setErrorMessage('')
     const { name, value, type } = e.target
 
     setFormData((prevData) => ({
@@ -33,6 +35,7 @@ const LoginPage = () => {
       router.push(`/profile/${data.data.username}`)
       console.log(data.message)
     } catch (error) {
+      setErrorMessage(error?.message)
       console.error('Error logging in:', error)
     } finally {
       setLoading(false)
@@ -77,6 +80,9 @@ const LoginPage = () => {
                   onChange={handleInputChange}
                   required
                 />
+                {errorMessage && (
+                  <p className="text-red-400 text-sm mb-2">{errorMessage}</p>
+                )}
                 <p className="text-blue-600 font-medium text-sm cursor-pointer">
                   Forgot password ?
                 </p>
@@ -97,7 +103,9 @@ const LoginPage = () => {
                 </div>
               </div>
               <div className="mt-10 md:mt-auto">
-                <Button type="submit">Log in</Button>
+                <Button disabled={loading} type={'submit'}>
+                  Log in
+                </Button>
               </div>
             </form>
           </div>

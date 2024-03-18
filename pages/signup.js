@@ -3,8 +3,8 @@ import Input from '../components/input/Input'
 import Image from 'next/image'
 import Button from '../components/button/Button'
 import LinearLoading from '../components/loading/LinearLoading'
-import { login } from '../server-functions/auth/login'
 import { useRouter } from 'next/router'
+import { signup } from '../server-functions/auth/signup'
 
 const SignupPage = () => {
   const router = useRouter()
@@ -15,8 +15,10 @@ const SignupPage = () => {
     password: ''
   })
   const [loading, setLoading] = useState(false)
+  const [errorMessage, setErrorMessage] = useState('')
 
   const handleInputChange = (e) => {
+    if (errorMessage) setErrorMessage('')
     const { name, value, type } = e.target
 
     setFormData((prevData) => ({
@@ -25,14 +27,15 @@ const SignupPage = () => {
     }))
   }
 
-  const handleLogin = async (e) => {
+  const handleSignup = async (e) => {
     e.preventDefault()
     setLoading(true)
     try {
-      const data = await login(formData)
+      const data = await signup(formData)
       router.push('/login')
       console.log(data.message)
     } catch (error) {
+      setErrorMessage(error?.message)
       console.error('Error signing in:', error)
     } finally {
       setLoading(false)
@@ -57,7 +60,7 @@ const SignupPage = () => {
 
           <div className="col-span-1 h-full flex-1 m-10 md:m-0 md:mt-10 md:mr-10">
             <form
-              onSubmit={handleLogin}
+              onSubmit={handleSignup}
               className="h-full flex flex-col justify-between"
             >
               <div>
@@ -93,21 +96,21 @@ const SignupPage = () => {
                   onChange={handleInputChange}
                   required
                 />
-                {/* <p className="text-blue-600 font-medium text-sm cursor-pointer">
-                  Forgot password ?
-                </p> */}
+                {errorMessage && (
+                  <p className="text-red-400 text-sm -mb-3">{errorMessage}</p>
+                )}
                 <div className="mt-5">
                   <p className="text-sm">
-                    <span className="text-blue-600 font-medium cursor-pointer">
-                      Learn more about using linkverse
-                    </span>
-                    <br />
                     Already have an account ?{' '}
                     <span
                       onClick={() => router.push('/login')}
                       className="text-blue-600 font-medium cursor-pointer"
                     >
                       Log in
+                    </span>
+                    <br />
+                    <span className="text-blue-600 font-medium cursor-pointer">
+                      Learn more about using linkverse
                     </span>
                   </p>
                 </div>
