@@ -26,11 +26,14 @@ const UserProfile = ({ userData }) => {
             <div className="w-full flex justify-center mt-10">
               {userData && userData?.profile_photo ? (
                 <Image
-                  src={item.logo}
+                  src={`${process.env.NEXT_PUBLIC_API_URL}${userData?.profile_photo}`}
                   alt="Link logo"
+                  placeholder="blur"
+                  blurDataURL={`${process.env.NEXT_PUBLIC_API_URL}${userData?.profile_photo}`}
                   width={64}
                   height={64}
-                  className="w-10 h-10"
+                  className="w-40 h-40 rounded-full"
+                  style={{ objectFit: 'cover' }}
                 />
               ) : (
                 <div className="w-40 h-40 bg-gray-300 rounded-full animate-pulse"></div>

@@ -9,6 +9,7 @@ import MenuComponent from '../../components/profile/MenuComponent'
 import UserData from '../../components/profile/UserData'
 import LoadingProfile from '../../components/profile/LoadingProfile'
 import NotFoundProfile from '../../components/profile/NotFoundProfile'
+import AddNewLink from '../../components/profile/AddNewLink'
 
 const UserProfile = () => {
   const router = useRouter()
@@ -22,6 +23,7 @@ const UserProfile = () => {
   const [renderLinView, setRenderLinkView] = useState(0)
   const [token, setToken] = useState(null)
   const [loadingSaving, setLoadingSaving] = useState(false)
+  const [reRender, setRender] = useState(0)
 
   useEffect(() => {
     const user = localStorage.getItem('USER')
@@ -32,7 +34,7 @@ const UserProfile = () => {
       setToken(token)
       fetchUserData(token)
     }
-  }, [username])
+  }, [username, reRender])
 
   const fetchUserData = async (token) => {
     if (username) {
@@ -110,8 +112,6 @@ const UserProfile = () => {
     }
   }
 
-  const handleAddNewLink = () => {}
-
   return (
     <div className="bg-gradient-to-tr from-gray-500 via-gray-700 to-black w-screen  h-screen flex justify-center overflow-hidden">
       {!loading ? (
@@ -128,7 +128,11 @@ const UserProfile = () => {
                 menuRef={menuRef}
               />
 
-              <UserData userData={userData} />
+              <UserData
+                userData={userData}
+                token={token}
+                setRender={setRender}
+              />
 
               <div className="mt-20">
                 {links &&
@@ -145,14 +149,7 @@ const UserProfile = () => {
                       />
                     )
                   })}
-                {!isEditMode && (
-                  <div
-                    onClick={handleAddNewLink}
-                    className="my-6 w-full text-center  border-[1px] py-3 rounded-lg text-white bg-gray-600 hover:scale-[102%] cursor-pointer transition-all duration-300"
-                  >
-                    Add new link +
-                  </div>
-                )}
+                {!isEditMode && <AddNewLink links={links} />}
               </div>
 
               {isEditMode && (

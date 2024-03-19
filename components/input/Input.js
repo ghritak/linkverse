@@ -1,35 +1,40 @@
-import React, { useRef, useState } from 'react';
+import { useRef, useState } from 'react'
+import Color from '../../styles/Colors'
 
 const Input = (props) => {
-  const inputRef = useRef(null);
-  const [isInputFocused, setIsInputFocused] = useState(false);
+  const inputRef = useRef(null)
+  const [isInputFocused, setIsInputFocused] = useState(false)
 
   const focusInput = () => {
-    inputRef.current.focus();
-    setIsInputFocused(true);
-  };
+    inputRef.current.focus()
+    setIsInputFocused(true)
+  }
 
   const blurInput = () => {
     if (!inputRef.current.value.trim()) {
-      setIsInputFocused(false);
+      setIsInputFocused(false)
     }
-  };
+  }
 
   return (
     <div
       onClick={focusInput}
-      className={`relative group -lg mb-4 bg-white cursor-text ${
+      className={`relative group -lg mb-4  cursor-text ${
         isInputFocused ? 'focus-within:border-blue-500' : ''
       }`}
     >
       <div
         className={`absolute left-2 ${
           isInputFocused ? '-top-2 text-xs text-blue-500' : 'top-[13px]'
-        } transition-all duration-200 bg-white px-2`}
+        } transition-all duration-200  px-2`}
+        style={{ backgroundColor: props.backgroundColor || 'white' }}
       >
         <label
-          className='cursor-text'
-          style={{ transform: 'translateY(-50%)' }}
+          className="cursor-text"
+          style={{
+            transform: 'translateY(-50%)',
+            color: isInputFocused ? Color.primary : props.color
+          }}
           htmlFor={props.label}
         >
           {props.label}
@@ -45,9 +50,10 @@ const Input = (props) => {
         }`}
         onFocus={focusInput}
         onBlur={blurInput}
+        style={{ backgroundColor: props.backgroundColor, color: props.color }}
       />
     </div>
-  );
-};
+  )
+}
 
-export default Input;
+export default Input

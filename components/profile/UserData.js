@@ -1,9 +1,10 @@
 import ProfilePhotoComponent from './ProfilePhotoComponent'
 
-const UserData = ({ userData }) => {
+const UserData = (props) => {
+  const { userData } = props
   return (
     <div className="mx-10 mt-14">
-      <ProfilePhotoComponent userData={userData} />
+      <ProfilePhotoComponent {...props} />
 
       <div className="w-full flex-col justify-center items-center mt-10 text-white">
         <p className="text-center text-lg mt-4">@{userData?.username}</p>
