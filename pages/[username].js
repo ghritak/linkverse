@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import LinkCard from '../components/cards/LinkCard'
 import Image from 'next/image'
-import Button from '../components/button/Button'
+import { Button } from '../components/button/Button'
 import { MdOutlineAddLink } from 'react-icons/md'
 import { getUser } from '../server-functions/profile/getUser'
 

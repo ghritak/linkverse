@@ -2,7 +2,7 @@ import Image from 'next/image'
 import { useRef, useState } from 'react'
 import { IoCameraReverseOutline } from 'react-icons/io5'
 import Modal from '../modal/Modal'
-import Button from '../button/Button'
+import { Button } from '../button/Button'
 import { updateProfilePicture } from '../../server-functions/profile/updateProfilePicture'
 
 const ProfilePhotoComponent = ({ userData, token, setRender }) => {

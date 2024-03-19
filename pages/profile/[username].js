@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/router'
-import Button from '../../components/button/Button'
+import { Button } from '../../components/button/Button'
 import { getUserProfile } from '../../server-functions/profile/getUserProfile'
 import LinkCardEdit from '../../components/cards/LinkCardEdit'
 import { postLinks } from '../../server-functions/profile/postLinks'
@@ -24,6 +24,7 @@ const UserProfile = () => {
   const [token, setToken] = useState(null)
   const [loadingSaving, setLoadingSaving] = useState(false)
   const [reRender, setRender] = useState(0)
+  const [isModalOpen, setModalOpen] = useState(false)
 
   useEffect(() => {
     const user = localStorage.getItem('USER')
@@ -67,6 +68,15 @@ const UserProfile = () => {
     setRenderLinkView((prev) => prev + 1)
   }
 
+  const handleDeleteLink = (index) => {
+    const confirmed = window.confirm('Are you sure you want to delete ?')
+    if (confirmed) {
+      const newLinks = [...links]
+      newLinks.splice(index, 1)
+      setLinks(newLinks)
+    }
+  }
+
   const handleLogout = () => {
     setMenuVisible(false)
     const confirmed = window.confirm('Are you sure you want to logout ?')
@@ -95,16 +105,17 @@ const UserProfile = () => {
     }
   }
 
-  const handleSave = async () => {
+  const handleSave = async (links) => {
     const data = { links }
     if (token && userData) {
       setLoadingSaving(true)
       try {
         const response = await postLinks(userData?.user_id, data, token)
         console.log(response)
-        setUserData((prev) => ({ ...prev, links: links }))
+        setRender((prev) => prev + 1)
         setEditMode(false)
         setLoadingSaving(false)
+        if (isModalOpen) setModalOpen(false)
       } catch (error) {
         console.error('Error fetching user data:', error)
         setLoadingSaving(false)
@@ -146,17 +157,26 @@ const UserProfile = () => {
                         handleInputChange={handleInputChange}
                         handleClickDot={handleClickDot}
                         renderLinView={renderLinView}
+                        handleDeleteLink={handleDeleteLink}
                       />
                     )
                   })}
-                {!isEditMode && <AddNewLink links={links} />}
+                {!isEditMode && (
+                  <AddNewLink
+                    links={links}
+                    loadingSaving={loadingSaving}
+                    isModalOpen={isModalOpen}
+                    setModalOpen={setModalOpen}
+                    handleSave={handleSave}
+                  />
+                )}
               </div>
 
               {isEditMode && (
                 <div className="absolute flex-1 w-full bottom-10 left-0 px-10 sm:px-20">
                   <Button
                     loading={loadingSaving}
-                    onClick={handleSave}
+                    onClick={() => handleSave(links)}
                     className={'w-full h-12'}
                   >
                     Save

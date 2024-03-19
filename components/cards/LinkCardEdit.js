@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
-import { IoLink, IoShareOutline } from 'react-icons/io5'
+import { IoLink, IoClose, IoShareOutline } from 'react-icons/io5'
 
 const LinkCardEdit = ({
   item,
@@ -8,7 +8,8 @@ const LinkCardEdit = ({
   isEditMode,
   handleInputChange,
   handleClickDot,
-  renderLinView
+  renderLinView,
+  handleDeleteLink
 }) => {
   const [isLinkView, setLinkView] = useState(false)
 
@@ -75,13 +76,21 @@ const LinkCardEdit = ({
           <IoShareOutline size={24} />
         </div>
       ) : (
-        <div
-          onClick={() => setLinkView(!isLinkView)}
-          className={`hover:scale-[115%] transition-all rounded-full duration-200 text-lg mr-3 p-1 cursor-pointer ${
-            isLinkView ? 'bg-white text-black' : ''
-          }`}
-        >
-          <IoLink size={24} />
+        <div className="flex items-center">
+          <div
+            onClick={() => setLinkView(!isLinkView)}
+            className={`hover:scale-[115%] transition-all rounded-full duration-200 text-lg mr-3 p-1 cursor-pointer ${
+              isLinkView ? 'bg-white text-black' : ''
+            }`}
+          >
+            <IoLink size={24} />
+          </div>
+          <div
+            onClick={() => handleDeleteLink(index)}
+            className="hover:scale-[115%] transition-all rounded-full duration-200 text-lg mr-3 p-1 cursor-pointer"
+          >
+            <IoClose size={24} />
+          </div>
         </div>
       )}
     </div>

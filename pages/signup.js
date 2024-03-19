@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import Input from '../components/input/Input'
 import Image from 'next/image'
-import Button from '../components/button/Button'
+import { Button } from '../components/button/Button'
 import LinearLoading from '../components/loading/LinearLoading'
 import { useRouter } from 'next/router'
 import { signup } from '../server-functions/auth/signup'

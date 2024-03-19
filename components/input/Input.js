@@ -1,10 +1,9 @@
 import { useRef, useState } from 'react'
 import Color from '../../styles/Colors'
 
-const Input = (props) => {
+const Input = ({ backgroundColor, color, ...props }) => {
   const inputRef = useRef(null)
   const [isInputFocused, setIsInputFocused] = useState(false)
-
   const focusInput = () => {
     inputRef.current.focus()
     setIsInputFocused(true)
@@ -27,13 +26,13 @@ const Input = (props) => {
         className={`absolute left-2 ${
           isInputFocused ? '-top-2 text-xs text-blue-500' : 'top-[13px]'
         } transition-all duration-200  px-2`}
-        style={{ backgroundColor: props.backgroundColor || 'white' }}
+        style={{ backgroundColor: backgroundColor || 'white' }}
       >
         <label
           className="cursor-text"
           style={{
             transform: 'translateY(-50%)',
-            color: isInputFocused ? Color.primary : props.color
+            color: isInputFocused ? Color.primary : color
           }}
           htmlFor={props.label}
         >
@@ -50,7 +49,7 @@ const Input = (props) => {
         }`}
         onFocus={focusInput}
         onBlur={blurInput}
-        style={{ backgroundColor: props.backgroundColor, color: props.color }}
+        style={{ backgroundColor: backgroundColor, color: color }}
       />
     </div>
   )

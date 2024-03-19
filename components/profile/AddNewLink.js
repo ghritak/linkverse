@@ -2,19 +2,42 @@ import { useState } from 'react'
 import Modal from '../modal/Modal'
 import Input from '../input/Input'
 import { IoClose } from 'react-icons/io5'
-import Button from '../button/Button'
+import { Button } from '../button/Button'
 
-const AddNewLink = ({ links }) => {
-  const [isModalOpen, setModalOpen] = useState(false)
-  const [isLoading, setLoading] = useState(false)
-  const [formData, setFormData] = useState({
-    name: '',
-    link: ''
-  })
+const initData = {
+  name: '',
+  link: '',
+  logo: ''
+}
 
-  const handleAddNewLink = () => {
-    setModalOpen(!isModalOpen)
-    console.log(links)
+const AddNewLink = ({
+  links,
+  loadingSaving,
+  handleSave,
+  isModalOpen,
+  setModalOpen
+}) => {
+  const [formData, setFormData] = useState(initData)
+  const [newLinks, setNewLinks] = useState([])
+
+  const handleAddNewLink = (e) => {
+    e.preventDefault()
+    let newLinksArray
+    if (newLinks.length) {
+      newLinksArray = [...links, ...newLinks]
+    } else {
+      newLinksArray = [...links, formData]
+    }
+    console.log(newLinksArray)
+    handleSave(newLinksArray)
+  }
+
+  const handleAddMore = (e) => {
+    e.preventDefault()
+    console.log('ran')
+    if (!formData.name || !formData.link) return
+    setNewLinks([...newLinks, formData])
+    setFormData(initData)
   }
 
   const handleInputChange = (e) => {
@@ -26,15 +49,25 @@ const AddNewLink = ({ links }) => {
     }))
   }
 
+  const handleCancel = (e) => {
+    e.preventDefault()
+    console.log('cancels')
+    setModalOpen(false)
+  }
+
   return (
     <div className="mb-10">
       <div
-        onClick={handleAddNewLink}
+        onClick={() => setModalOpen(true)}
         className="my-6 w-full text-center  border-[1px] py-3 rounded-lg text-white bg-gray-600 hover:scale-[102%] cursor-pointer transition-all duration-300"
       >
         {isModalOpen ? 'Cancel' : 'Add new link +'}
       </div>
-      <Modal isOpen={isModalOpen}>
+      <Modal
+        isOpen={isModalOpen}
+        onClose={() => setModalOpen(false)}
+        dismissable={true}
+      >
         <div className="bg-gray-600 p-4 sm:p-10 rounded-3xl sm:w-[480px] md:w-[640px] m-8 min-w-[300px]">
           <div className="text-white flex items-center justify-between border-b-[1px] border-gray-400 pb-4">
             <h1 className="text-lg md:text-xl font-semibold">Add New Link</h1>
@@ -55,10 +88,9 @@ const AddNewLink = ({ links }) => {
                 name="name"
                 value={formData.name}
                 onChange={handleInputChange}
-                required
+                required={newLinks.length === 0}
                 backgroundColor={'rgb(75, 85, 99)'}
                 color={'#fff'}
-                borderColor="#659efc"
               />
               <Input
                 label="Link URL"
@@ -66,21 +98,29 @@ const AddNewLink = ({ links }) => {
                 name="link"
                 value={formData.link}
                 onChange={handleInputChange}
-                required
+                required={newLinks.length === 0}
                 backgroundColor={'rgb(75, 85, 99)'}
                 color={'#fff'}
               />
+              <div
+                onClick={handleAddMore}
+                className="rounded-full w-32 h-10 text-sm  flex items-center justify-center text-white cursor-pointer bg-blue-500 hover:bg-blue-600 transition-all duration-300"
+              >
+                Add More
+              </div>
               <div className="flex justify-end mt-10">
-                <Button
-                  onClick={() => setModalOpen(false)}
-                  className="rounded-full px-10 mr-6 bg-gray-600 hover:bg-gray-500 border-[1px]"
+                <div
+                  disabled={loadingSaving}
+                  onClick={handleCancel}
+                  className={`rounded-full w-28 h-11 mr-6 bg-gray-600 flex items-center justify-center text-white cursor-pointer border-[1px] ${
+                    loadingSaving ? '' : 'hover:bg-gray-500'
+                  }`}
                 >
                   Cancel
-                </Button>
+                </div>
                 <Button
-                  loading={isLoading}
-                  type={'submit'}
-                  className="rounded-full px-10 border-[1px] border-blue-500"
+                  loading={loadingSaving}
+                  className="rounded-full w-28 h-11 border-[1px] border-blue-500 hover:border-blue-600"
                 >
                   Save
                 </Button>
