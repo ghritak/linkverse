@@ -10,7 +10,7 @@ const AddLinkCard = ({ item, index, handleDeleteLink }) => {
           alt="Link logo"
           width={10}
           height={10}
-          className="w-10 h-10"
+          className="w-11 h-10 mx-1"
         />
       ) : (
         <div className="w-11 h-10 mx-1 bg-gray-300 animate-pulse rounded-lg"></div>
@@ -19,12 +19,14 @@ const AddLinkCard = ({ item, index, handleDeleteLink }) => {
         <h1 className="">{item?.name}</h1>
         <p>{item?.link}</p>
       </div>
-      <div
-        onClick={() => handleDeleteLink(index)}
-        className="hover:scale-125 transition-all duration-300 text-lg mr-3 cursor-pointer"
-      >
-        <IoClose size={24} />
-      </div>
+      {index !== undefined ? (
+        <div
+          onClick={() => handleDeleteLink(index)}
+          className="hover:scale-125 transition-all duration-300 text-lg mr-3 cursor-pointer"
+        >
+          <IoClose size={24} />
+        </div>
+      ) : null}
     </div>
   )
 }

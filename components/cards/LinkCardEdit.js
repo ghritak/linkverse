@@ -34,8 +34,8 @@ const LinkCardEdit = ({
         <Image
           src={item.logo}
           alt="Link logo"
-          width={10}
-          height={10}
+          width={64}
+          height={64}
           className="w-10 h-10"
         />
       ) : (

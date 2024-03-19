@@ -1,10 +1,13 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Modal from '../modal/Modal'
 import Input from '../input/Input'
 import { IoClose } from 'react-icons/io5'
 import { Button } from '../button/Button'
 import AddLinkCard from '../cards/AddLinkCard'
 import { PiLinkSimpleHorizontalFill } from 'react-icons/pi'
+import CustomDropdown from '../custom-dropdown/CustomDropdown'
+import { getLinkData } from '../../server-functions/others/getLinkData'
+import { uploadLogo } from '../../server-functions/others/uploadLogo'
 
 const initData = {
   name: '',
@@ -21,6 +24,47 @@ const AddNewLink = ({
 }) => {
   const [formData, setFormData] = useState(initData)
   const [newLinks, setNewLinks] = useState([])
+  const [linkOptions, setLinkOptions] = useState([])
+  const [logoType, setLogoType] = useState(null)
+  const fileInputRef = useRef(null)
+  const [imageUploading, setImageUploading] = useState(false)
+
+  useEffect(() => {
+    getLinksIconOptions()
+  }, [])
+
+  const getLinksIconOptions = async () => {
+    const data = await getLinkData()
+    setLinkOptions(data)
+  }
+
+  const handleButtonClick = (e) => {
+    e.preventDefault()
+    fileInputRef.current.click()
+  }
+  const handleImageChange = (e) => {
+    handleUploadLogo(e.target.files[0])
+  }
+
+  const handleUploadLogo = async (file) => {
+    if (file) {
+      setImageUploading(true)
+      try {
+        const formData = new FormData()
+        formData.append('logo', file)
+        const res = await uploadLogo(formData)
+        setFormData((prev) => ({
+          ...prev,
+          logo: `${process.env.NEXT_PUBLIC_API_URL}${res.filename}`
+        }))
+        console.log(res)
+      } catch (error) {
+        console.log(error)
+      } finally {
+        setImageUploading(false)
+      }
+    }
+  }
 
   const handleAddNewLink = (e) => {
     e.preventDefault()
@@ -42,6 +86,7 @@ const AddNewLink = ({
     if (!formData.name || !formData.link) return
     setNewLinks([...newLinks, formData])
     setFormData(initData)
+    setLogoType(null)
   }
 
   const handleInputChange = (e) => {
@@ -57,6 +102,8 @@ const AddNewLink = ({
     e.preventDefault()
     setModalOpen(false)
     setNewLinks([])
+    setFormData(initData)
+    setLogoType(null)
   }
 
   const handleDeleteLink = (index) => {
@@ -85,9 +132,7 @@ const AddNewLink = ({
               <h1 className="text-lg md:text-xl font-semibold">Add New Link</h1>
             </div>
             <span
-              onClick={() => {
-                setModalOpen(false)
-              }}
+              onClick={handleCancel}
               className="cursor-pointer text-lg md:text-xl hover:scale-90 transition-all duration-300"
             >
               <IoClose className="w-6 h-6 md:w-8 md:h-8" />
@@ -104,6 +149,11 @@ const AddNewLink = ({
                 />
               )
             })}
+            {formData.name.length ||
+            formData.logo.length ||
+            formData.link.length ? (
+              <AddLinkCard item={formData} />
+            ) : null}
           </div>
           <form onSubmit={handleAddNewLink}>
             <div className="mt-6">
@@ -127,31 +177,67 @@ const AddNewLink = ({
                 backgroundColor={'rgb(75, 85, 99)'}
                 color={'#fff'}
               />
-              <div className="flex items-center justify-between">
-                <div
-                  // onClick={handleAddMore}
-                  className="rounded-full w-32 h-10 text-sm  flex items-center justify-center text-white cursor-pointer bg-blue-500 hover:bg-blue-600 transition-all duration-300"
-                >
-                  Select Icon
+              <div className="mb-4 text-white">
+                <CustomDropdown
+                  key={formData.logo}
+                  search={true}
+                  placeholder={'Select Icon'}
+                  value={logoType}
+                  displayIcon={'logo'}
+                  displayKey="name"
+                  options={linkOptions}
+                  backgroundColor={'rgb(75, 85, 99)'}
+                  onSelect={(item) => {
+                    setLogoType(item.name)
+                    setFormData({
+                      ...formData,
+                      ...{ logo: item.logo }
+                    })
+                  }}
+                />
+                <div className="text-sm mt-4 flex items-center">
+                  <Button
+                    loading={imageUploading}
+                    onClick={handleButtonClick}
+                    // className="rounded-full w-32 h-10 text-sm mr-3 flex items-center justify-center text-white cursor-pointer bg-blue-500 hover:bg-blue-600 transition-all duration-300"
+                    className="rounded-full w-32 h-10 text-sm mr-3"
+                  >
+                    Select Icon
+                  </Button>
+                  <input
+                    type="file"
+                    name="profile_photo"
+                    accept="image/*"
+                    ref={fileInputRef}
+                    style={{ display: 'none' }}
+                    onChange={handleImageChange}
+                  />
+                  <p>Or Upload your own</p>
                 </div>
-                <div
+              </div>
+              <div className="flex items-center justify-between">
+                <Button
+                  disabled={imageUploading}
                   onClick={handleAddMore}
-                  className="rounded-full w-32 h-10 text-sm  flex items-center justify-center text-white cursor-pointer bg-blue-500 hover:bg-blue-600 transition-all duration-300"
+                  className="rounded-full w-32 h-10 text-sm"
                 >
                   Add More
-                </div>
+                </Button>
               </div>
               <div className="flex justify-end mt-10">
                 <div
-                  disabled={loadingSaving}
+                  disabled={loadingSaving || imageUploading}
                   onClick={handleCancel}
-                  className={`rounded-full w-28 h-11 mr-6 bg-gray-600 flex items-center justify-center text-white cursor-pointer border-[1px] ${
-                    loadingSaving ? '' : 'hover:bg-gray-500'
+                  className={`rounded-full w-28 h-11 mr-6 bg-gray-600 flex items-center justify-center text-white border-[1px] ${
+                    loadingSaving || imageUploading
+                      ? 'opacity-50'
+                      : 'hover:bg-gray-500 cursor-pointer'
                   }`}
                 >
                   Cancel
                 </div>
                 <Button
+                  disabled={imageUploading}
                   loading={loadingSaving}
                   type={'submit'}
                   className="rounded-full w-28 h-11 border-[1px] border-blue-500 hover:border-blue-600"
