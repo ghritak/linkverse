@@ -185,7 +185,7 @@ const UserProfile = () => {
       {!loading ? (
         <>
           {userData ? (
-            <div className="relative max-w-3xl  md:min-w-[700px] md:bg-gradient-to-tr from-gray-500 via-gray-700 to-black  w-full ">
+            <div className="relative max-w-3xl  md:min-w-[700px] w-full ">
               <div className="overflow-y-scroll h-screen px-8 md:px-20">
                 <MenuComponent
                   activity={activity}
