@@ -13,11 +13,6 @@ const UserProfile = ({ userData }) => {
     e.stopPropagation()
   }
 
-  const handleExternalLinkClick = (event, link) => {
-    event.preventDefault()
-    window.open(link, '_blank')
-  }
-
   return (
     <div className="bg-gradient-to-tr from-gray-500 via-gray-700 to-black w-screen h-screen flex justify-center overflow-hidden">
       <div className="relative max-w-3xl flex flex-col md:min-w-[700px] md:bg-gradient-to-tr from-gray-500 via-gray-700 to-black overflow-y-scroll w-full px-8 md:px-20">
@@ -55,7 +50,6 @@ const UserProfile = ({ userData }) => {
                       key={index}
                       item={item}
                       handleClickDot={handleClickDot}
-                      handleExternalLinkClick={handleExternalLinkClick}
                     />
                   )
                 })}

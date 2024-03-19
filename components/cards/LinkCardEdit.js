@@ -17,15 +17,18 @@ const LinkCardEdit = ({
     setLinkView(false)
   }, [renderLinView])
 
-  const handleExternalLinkClick = (event, link) => {
+  const handleExternalLinkClick = (event, item) => {
     event.preventDefault()
     if (activity.editModeLinks) return
-    window.open(link, '_blank')
+    if (item.sensitive) {
+      return
+    }
+    window.open(item.link, '_blank')
   }
 
   return (
     <div
-      onClick={(e) => handleExternalLinkClick(e, item.link)}
+      onClick={(e) => handleExternalLinkClick(e, item)}
       className={`flex justify-between items-center my-6 w-full flex-1 border-[1px] p-2 rounded-lg text-white bg-gray-600 ${
         activity.editModeLinks ? '' : 'hover:scale-[102%] cursor-pointer'
       } transition-all duration-300`}

@@ -8,11 +8,14 @@ import { PiLinkSimpleHorizontalFill } from 'react-icons/pi'
 import CustomDropdown from '../custom-dropdown/CustomDropdown'
 import { getLinkData } from '../../server-functions/others/getLinkData'
 import { uploadLogo } from '../../server-functions/others/uploadLogo'
+import Switch from '../switch/Switch'
+import Color from '../../styles/Colors'
 
 const initData = {
   name: '',
   link: '',
-  logo: ''
+  logo: '',
+  sensitive: false
 }
 
 const AddNewLink = ({
@@ -195,24 +198,39 @@ const AddNewLink = ({
                     })
                   }}
                 />
-                <div className="text-sm mt-4 flex items-center">
-                  <Button
-                    loading={imageUploading}
-                    onClick={handleButtonClick}
-                    // className="rounded-full w-32 h-10 text-sm mr-3 flex items-center justify-center text-white cursor-pointer bg-blue-500 hover:bg-blue-600 transition-all duration-300"
-                    className="rounded-full w-32 h-10 text-sm mr-3"
-                  >
-                    Select Icon
-                  </Button>
-                  <input
-                    type="file"
-                    name="profile_photo"
-                    accept="image/*"
-                    ref={fileInputRef}
-                    style={{ display: 'none' }}
-                    onChange={handleImageChange}
-                  />
-                  <p>Or Upload your own</p>
+                <div className="flex items-center justify-between mt-4">
+                  <div className="text-sm  flex items-center">
+                    <Button
+                      loading={imageUploading}
+                      onClick={handleButtonClick}
+                      className="rounded-full w-32 h-10 text-sm mr-3"
+                    >
+                      Select Icon
+                    </Button>
+                    <input
+                      type="file"
+                      name="profile_photo"
+                      accept="image/*"
+                      ref={fileInputRef}
+                      style={{ display: 'none' }}
+                      onChange={handleImageChange}
+                    />
+                    <p>Or Upload your own</p>
+                  </div>
+                  <div>
+                    <p className="mb-2">Is this a sensitive link</p>
+                    <Switch
+                      isOn={formData.sensitive}
+                      handleToggle={() =>
+                        setFormData((prev) => ({
+                          ...prev,
+                          sensitive: !formData.sensitive
+                        }))
+                      }
+                      unCheckedColor={Color.primary}
+                      checkedColor="#06D6A0"
+                    />
+                  </div>
                 </div>
               </div>
               <div className="flex items-center justify-between">
