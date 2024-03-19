@@ -5,7 +5,7 @@ import Modal from '../modal/Modal'
 import { Button } from '../button/Button'
 import { updateProfilePicture } from '../../server-functions/profile/updateProfilePicture'
 
-const ProfilePhotoComponent = ({ userData, token, setRender }) => {
+const ProfilePhotoComponent = ({ activity, token, setRender }) => {
   const [selectedImage, setSelectedImage] = useState(null)
   const [isModalOpen, setModalOpen] = useState(false)
   const fileInputRef = useRef(null)
@@ -28,13 +28,13 @@ const ProfilePhotoComponent = ({ userData, token, setRender }) => {
   }
 
   const handleUpload = async () => {
-    if (userData?.username && token) {
+    if (activity?.userData?.username && token) {
       setImageUploading(true)
       try {
         const formData = new FormData()
         formData.append('profile_photo', selectedImage[0])
         const res = await updateProfilePicture(
-          userData.username,
+          activity?.userData.username,
           token,
           formData
         )
@@ -57,13 +57,13 @@ const ProfilePhotoComponent = ({ userData, token, setRender }) => {
   return (
     <div className="w-full flex justify-center mt-10 relative">
       <div className="rounded-full">
-        {userData && userData?.profile_photo ? (
+        {activity && activity?.userData && activity?.userData?.profile_photo ? (
           <Image
-            src={`${process.env.NEXT_PUBLIC_API_URL}${userData?.profile_photo}`}
+            src={`${process.env.NEXT_PUBLIC_API_URL}${activity?.userData?.profile_photo}`}
             alt="Link logo"
             priority
-            width={64}
-            height={64}
+            width={80}
+            height={80}
             className="w-40 h-40 rounded-full"
             style={{ objectFit: 'cover' }}
           />
@@ -95,7 +95,8 @@ const ProfilePhotoComponent = ({ userData, token, setRender }) => {
               alt="Selected"
               width={100}
               height={100}
-              className="w-96 h-96"
+              className="w-96 h-96 rounded-xl"
+              style={{ objectFit: 'cover' }}
             />
           )}
           <div className="flex items-center mt-8">

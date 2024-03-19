@@ -10,21 +10,28 @@ import UserData from '../../components/profile/UserData'
 import LoadingProfile from '../../components/profile/LoadingProfile'
 import NotFoundProfile from '../../components/profile/NotFoundProfile'
 import AddNewLink from '../../components/profile/AddNewLink'
+import { updateProfile } from '../../server-functions/profile/updateProfile'
 
 const UserProfile = () => {
   const router = useRouter()
   const { username } = router.query
   const [loading, setLoading] = useState(true)
-  const [userData, setUserData] = useState(null)
   const [menuVisible, setMenuVisible] = useState(false)
   const menuRef = useRef(null)
-  const [isEditMode, setEditMode] = useState(false)
+  const [userData, setUserData] = useState(null)
   const [links, setLinks] = useState([])
   const [renderLinView, setRenderLinkView] = useState(0)
   const [token, setToken] = useState(null)
   const [loadingSaving, setLoadingSaving] = useState(false)
   const [reRender, setRender] = useState(0)
   const [isModalOpen, setModalOpen] = useState(false)
+  const [activity, setActivity] = useState({
+    editModeLinks: false,
+    editModeProfile: false,
+    userData: null,
+    reRender: 0,
+    profileErrorMessage: ''
+  })
 
   useEffect(() => {
     const user = localStorage.getItem('USER')
@@ -41,7 +48,16 @@ const UserProfile = () => {
     if (username) {
       try {
         const data = await getUserProfile(username, token)
-        setUserData(data)
+        setActivity((prev) => ({
+          ...prev,
+          userData: data
+        }))
+        setUserData({
+          name: data.name,
+          email: data.email,
+          username: data.username,
+          bio: data.bio
+        })
         setLinks(data?.links)
       } catch (error) {
         console.error('Error fetching user data:', error)
@@ -57,14 +73,29 @@ const UserProfile = () => {
     // alert('he');
   }
 
+  const handleEditLinks = () => {
+    setMenuVisible(false)
+    setActivity((prev) => ({ ...prev, editModeLinks: true }))
+  }
+
   const handleEditProfile = () => {
     setMenuVisible(false)
-    setEditMode(true)
+    setActivity((prev) => ({ ...prev, editModeProfile: true }))
   }
 
   const handleCancel = () => {
-    setEditMode(false)
-    setLinks(userData?.links)
+    setActivity((prev) => ({
+      ...prev,
+      editModeLinks: false,
+      editModeProfile: false
+    }))
+    setLinks(activity?.userData?.links)
+    setUserData({
+      name: activity?.userData?.name,
+      email: activity?.userData?.email,
+      username: activity?.userData?.username,
+      bio: activity?.userData?.bio
+    })
     setRenderLinkView((prev) => prev + 1)
   }
 
@@ -105,18 +136,45 @@ const UserProfile = () => {
     }
   }
 
-  const handleSave = async (links) => {
+  const handleSaveLinks = async (links) => {
     const data = { links }
-    if (token && userData) {
+    if (token && activity?.userData) {
       setLoadingSaving(true)
       try {
-        const response = await postLinks(userData?.user_id, data, token)
+        const response = await postLinks(
+          activity?.userData?.user_id,
+          data,
+          token
+        )
         console.log(response)
         setRender((prev) => prev + 1)
-        setEditMode(false)
+        setActivity((prev) => ({ ...prev, editModeLinks: false }))
         setLoadingSaving(false)
         if (isModalOpen) setModalOpen(false)
       } catch (error) {
+        console.error('Error fetching user data:', error)
+        setLoadingSaving(false)
+      }
+    }
+  }
+
+  const handleSaveProfile = async (data) => {
+    if (token && data) {
+      setLoadingSaving(true)
+      try {
+        const response = await updateProfile(token, data)
+        console.log(response)
+        // setRender((prev) => prev + 1)
+        if (activity?.userData?.username !== data?.username) {
+          router.push(`/profile/${data.username}`)
+        } else {
+          setRender((prev) => prev + 1)
+        }
+        setActivity((prev) => ({ ...prev, editModeProfile: false }))
+        setLoadingSaving(false)
+        if (isModalOpen) setModalOpen(false)
+      } catch (error) {
+        setActivity((prev) => ({ ...prev, profileErrorMessage: error.message }))
         console.error('Error fetching user data:', error)
         setLoadingSaving(false)
       }
@@ -128,58 +186,74 @@ const UserProfile = () => {
       {!loading ? (
         <>
           {userData ? (
-            <div className="relative max-w-3xl  md:min-w-[700px] md:bg-gradient-to-tr from-gray-500 via-gray-700 to-black overflow-y-scroll w-full px-8 md:px-20">
-              <MenuComponent
-                isEditMode={isEditMode}
-                menuVisible={menuVisible}
-                handleCancel={handleCancel}
-                setMenuVisible={setMenuVisible}
-                handleEditProfile={handleEditProfile}
-                handleLogout={handleLogout}
-                menuRef={menuRef}
-              />
+            <div className="relative max-w-3xl  md:min-w-[700px] md:bg-gradient-to-tr from-gray-500 via-gray-700 to-black  w-full ">
+              <div className="overflow-y-scroll h-screen px-8 md:px-20">
+                <MenuComponent
+                  activity={activity}
+                  menuVisible={menuVisible}
+                  handleCancel={handleCancel}
+                  setMenuVisible={setMenuVisible}
+                  handleEditLinks={handleEditLinks}
+                  handleEditProfile={handleEditProfile}
+                  handleLogout={handleLogout}
+                  menuRef={menuRef}
+                />
 
-              <UserData
-                userData={userData}
-                token={token}
-                setRender={setRender}
-              />
+                <UserData
+                  userData={userData}
+                  setUserData={setUserData}
+                  token={token}
+                  setRender={setRender}
+                  activity={activity}
+                  setActivity={setActivity}
+                />
 
-              <div className="mt-20">
-                {links &&
-                  links.map((item, index) => {
-                    return (
-                      <LinkCardEdit
-                        key={index}
-                        index={index}
-                        item={item}
-                        isEditMode={isEditMode}
-                        handleInputChange={handleInputChange}
-                        handleClickDot={handleClickDot}
-                        renderLinView={renderLinView}
-                        handleDeleteLink={handleDeleteLink}
-                      />
-                    )
-                  })}
-                {!isEditMode && (
-                  <AddNewLink
-                    links={links}
-                    loadingSaving={loadingSaving}
-                    isModalOpen={isModalOpen}
-                    setModalOpen={setModalOpen}
-                    handleSave={handleSave}
-                  />
-                )}
+                <div className="pt-10 pb-20">
+                  {links &&
+                    links.map((item, index) => {
+                      return (
+                        <LinkCardEdit
+                          key={index}
+                          index={index}
+                          item={item}
+                          activity={activity}
+                          handleInputChange={handleInputChange}
+                          handleClickDot={handleClickDot}
+                          renderLinView={renderLinView}
+                          handleDeleteLink={handleDeleteLink}
+                        />
+                      )
+                    })}
+                  {!(activity.editModeLinks || activity.editModeProfile) && (
+                    <AddNewLink
+                      links={links}
+                      loadingSaving={loadingSaving}
+                      isModalOpen={isModalOpen}
+                      setModalOpen={setModalOpen}
+                      handleSaveLinks={handleSaveLinks}
+                    />
+                  )}
+                </div>
               </div>
-
-              {isEditMode && (
-                <div className="absolute flex-1 w-full bottom-10 left-0 px-10 sm:px-20">
+              {activity.editModeLinks && (
+                <div className="absolute flex-1 w-full bottom-4 md:bottom-10 left-0 px-10 sm:px-20 ">
                   <Button
                     loading={loadingSaving}
-                    onClick={() => handleSave(links)}
+                    onClick={() => handleSaveLinks(links)}
                     className={'w-full h-12'}
                   >
-                    Save
+                    Save Links
+                  </Button>
+                </div>
+              )}
+              {activity.editModeProfile && (
+                <div className="absolute flex-1 w-full bottom-4 md:bottom-10 left-0 px-10 sm:px-20 ">
+                  <Button
+                    loading={loadingSaving}
+                    onClick={() => handleSaveProfile(userData)}
+                    className={'w-full h-12'}
+                  >
+                    Save Profile
                   </Button>
                 </div>
               )}

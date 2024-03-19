@@ -13,7 +13,7 @@ const initData = {
 const AddNewLink = ({
   links,
   loadingSaving,
-  handleSave,
+  handleSaveLinks,
   isModalOpen,
   setModalOpen
 }) => {
@@ -29,7 +29,7 @@ const AddNewLink = ({
       newLinksArray = [...links, formData]
     }
     console.log(newLinksArray)
-    handleSave(newLinksArray)
+    handleSaveLinks(newLinksArray)
   }
 
   const handleAddMore = (e) => {

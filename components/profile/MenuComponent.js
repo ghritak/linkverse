@@ -3,10 +3,11 @@ import { BsThreeDotsVertical } from 'react-icons/bs'
 import { FiEdit, FiLogOut } from 'react-icons/fi'
 
 const MenuComponent = ({
-  isEditMode,
+  activity,
   menuVisible,
   handleCancel,
   setMenuVisible,
+  handleEditLinks,
   handleEditProfile,
   handleLogout,
   menuRef
@@ -31,7 +32,7 @@ const MenuComponent = ({
   return (
     <>
       <div className="absolute top-6 right-8 md:right-20">
-        {!isEditMode ? (
+        {!(activity.editModeLinks || activity.editModeProfile) ? (
           <button
             onClick={() => setMenuVisible(!menuVisible)}
             id="menuButton"
@@ -58,14 +59,21 @@ const MenuComponent = ({
       >
         <div
           onClick={handleEditProfile}
-          className="flex items-center p-2.5 w-32 border-b-[1px] cursor-pointer hover:bg-gray-200 rounded-t-md transition-all duration-300 justify-between"
+          className="flex items-center p-2.5 w-40 border-b-[1px] cursor-pointer hover:bg-gray-200 rounded-t-md transition-all duration-300 justify-between"
+        >
+          <p className="mr-2">Edit Profile</p>
+          <FiEdit />
+        </div>
+        <div
+          onClick={handleEditLinks}
+          className="flex items-center p-2.5 w-40 border-b-[1px] cursor-pointer hover:bg-gray-200 rounded-t-md transition-all duration-300 justify-between"
         >
           <p className="mr-2">Edit Links</p>
           <FiEdit />
         </div>
         <div
           onClick={handleLogout}
-          className="flex items-center p-2.5 w-32  cursor-pointer hover:bg-gray-200 rounded-b-md transition-all duration-300 justify-between"
+          className="flex items-center p-2.5 w-40  cursor-pointer hover:bg-gray-200 rounded-b-md transition-all duration-300 justify-between"
         >
           <p className="mr-2">Log out </p>
           <FiLogOut />
@@ -79,7 +87,7 @@ export default MenuComponent
 
 // <>
 // <div className="absolute top-6 right-8 md:right-20">
-//   {!isEditMode ? (
+//   {!activity.editModeLinks ? (
 //     <button
 //       onClick={() => setMenuVisible(!menuVisible)}
 //       id="menuButton"
@@ -105,7 +113,7 @@ export default MenuComponent
 //   }`}
 // >
 //   <div
-//     onClick={handleEditProfile}
+//     onClick={handleEditLinks}
 //     className="flex items-center p-2.5 w-32 border-b-[1px] cursor-pointer hover:bg-gray-200 rounded-t-md transition-all duration-300 justify-between"
 //   >
 //     <p className="mr-2">Edit Links</p>
