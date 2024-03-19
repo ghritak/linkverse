@@ -4,6 +4,7 @@ import Input from '../input/Input'
 import { IoClose } from 'react-icons/io5'
 import { Button } from '../button/Button'
 import AddLinkCard from '../cards/AddLinkCard'
+import { PiLinkSimpleHorizontalFill } from 'react-icons/pi'
 
 const initData = {
   name: '',
@@ -79,12 +80,15 @@ const AddNewLink = ({
       >
         <div className="bg-gray-600 p-4 sm:p-10 rounded-3xl sm:w-[480px] md:w-[640px] m-8 min-w-[300px]">
           <div className="text-white flex items-center justify-between border-b-[1px] border-gray-400 pb-4">
-            <h1 className="text-lg md:text-xl font-semibold">Add New Link</h1>
+            <div className="flex items-center">
+              <PiLinkSimpleHorizontalFill className="w-6 h-6 mr-2" />
+              <h1 className="text-lg md:text-xl font-semibold">Add New Link</h1>
+            </div>
             <span
               onClick={() => {
                 setModalOpen(false)
               }}
-              className="cursor-pointer text-lg md:text-xl"
+              className="cursor-pointer text-lg md:text-xl hover:scale-90 transition-all duration-300"
             >
               <IoClose className="w-6 h-6 md:w-8 md:h-8" />
             </span>
@@ -123,11 +127,19 @@ const AddNewLink = ({
                 backgroundColor={'rgb(75, 85, 99)'}
                 color={'#fff'}
               />
-              <div
-                onClick={handleAddMore}
-                className="rounded-full w-32 h-10 text-sm  flex items-center justify-center text-white cursor-pointer bg-blue-500 hover:bg-blue-600 transition-all duration-300"
-              >
-                Add More
+              <div className="flex items-center justify-between">
+                <div
+                  // onClick={handleAddMore}
+                  className="rounded-full w-32 h-10 text-sm  flex items-center justify-center text-white cursor-pointer bg-blue-500 hover:bg-blue-600 transition-all duration-300"
+                >
+                  Select Icon
+                </div>
+                <div
+                  onClick={handleAddMore}
+                  className="rounded-full w-32 h-10 text-sm  flex items-center justify-center text-white cursor-pointer bg-blue-500 hover:bg-blue-600 transition-all duration-300"
+                >
+                  Add More
+                </div>
               </div>
               <div className="flex justify-end mt-10">
                 <div

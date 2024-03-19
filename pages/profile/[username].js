@@ -164,7 +164,6 @@ const UserProfile = () => {
       try {
         const response = await updateProfile(token, data)
         console.log(response)
-        // setRender((prev) => prev + 1)
         if (activity?.userData?.username !== data?.username) {
           router.push(`/profile/${data.username}`)
         } else {

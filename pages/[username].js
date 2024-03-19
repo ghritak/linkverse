@@ -27,12 +27,12 @@ const UserProfile = ({ userData }) => {
               {userData && userData?.profile_photo ? (
                 <Image
                   src={`${process.env.NEXT_PUBLIC_API_URL}${userData?.profile_photo}`}
-                  alt="Link logo"
+                  alt=""
                   placeholder="blur"
                   blurDataURL={`${process.env.NEXT_PUBLIC_API_URL}${userData?.profile_photo}`}
                   width={64}
                   height={64}
-                  className="w-40 h-40 rounded-full"
+                  className="w-40 h-40 rounded-full bg-gray-200 animate-pulse"
                   style={{ objectFit: 'cover' }}
                 />
               ) : (
