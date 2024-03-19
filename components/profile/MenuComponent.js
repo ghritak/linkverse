@@ -36,16 +36,16 @@ const MenuComponent = ({
           <button
             onClick={() => setMenuVisible(!menuVisible)}
             id="menuButton"
-            className=" cursor-pointer hover:scale-95 bg-white hover:text-black flex items-center justify-center text-white rounded-full p-2 transition-all duration-300"
+            className=" cursor-pointer hover:scale-95 hover:bg-white hover:text-black border-[1px] flex items-center justify-center text-white rounded-full p-2 transition-all duration-300"
           >
             <span id="menuButton">
-              <BsThreeDotsVertical id="menuButton" color="black" />
+              <BsThreeDotsVertical id="menuButton" />
             </span>
           </button>
         ) : (
           <button
             onClick={handleCancel}
-            className="bg-white z-50 hover:text-white rounded-2xl hover:bg-transparent border-[1px] transition-all duration-300 px-4 py-1"
+            className="hover:bg-white text-white z-50 hover:text-black rounded-2xl hover:bg-transparent border-[1px] transition-all duration-300 px-4 py-1"
           >
             Cancel
           </button>

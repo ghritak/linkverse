@@ -3,6 +3,7 @@ import Modal from '../modal/Modal'
 import Input from '../input/Input'
 import { IoClose } from 'react-icons/io5'
 import { Button } from '../button/Button'
+import AddLinkCard from '../cards/AddLinkCard'
 
 const initData = {
   name: '',
@@ -25,6 +26,9 @@ const AddNewLink = ({
     let newLinksArray
     if (newLinks.length) {
       newLinksArray = [...links, ...newLinks]
+      if (formData.name && formData.link) {
+        newLinksArray = [...newLinksArray, formData]
+      }
     } else {
       newLinksArray = [...links, formData]
     }
@@ -34,7 +38,6 @@ const AddNewLink = ({
 
   const handleAddMore = (e) => {
     e.preventDefault()
-    console.log('ran')
     if (!formData.name || !formData.link) return
     setNewLinks([...newLinks, formData])
     setFormData(initData)
@@ -51,8 +54,14 @@ const AddNewLink = ({
 
   const handleCancel = (e) => {
     e.preventDefault()
-    console.log('cancels')
     setModalOpen(false)
+    setNewLinks([])
+  }
+
+  const handleDeleteLink = (index) => {
+    const newUpdatedLink = [...newLinks]
+    newUpdatedLink.splice(index, 1)
+    setNewLinks(newUpdatedLink)
   }
 
   return (
@@ -79,6 +88,18 @@ const AddNewLink = ({
             >
               <IoClose className="w-6 h-6 md:w-8 md:h-8" />
             </span>
+          </div>
+          <div>
+            {newLinks.map((item, index) => {
+              return (
+                <AddLinkCard
+                  key={index}
+                  item={item}
+                  handleDeleteLink={handleDeleteLink}
+                  index={index}
+                />
+              )
+            })}
           </div>
           <form onSubmit={handleAddNewLink}>
             <div className="mt-6">
@@ -120,6 +141,7 @@ const AddNewLink = ({
                 </div>
                 <Button
                   loading={loadingSaving}
+                  type={'submit'}
                   className="rounded-full w-28 h-11 border-[1px] border-blue-500 hover:border-blue-600"
                 >
                   Save

@@ -16,7 +16,7 @@ const LinkCard = ({ item, handleExternalLinkClick, handleClickDot }) => {
           className="w-10 h-10"
         />
       ) : (
-        <div className="w-10 h-10 bg-gray-300 animate-pulse rounded-lg"></div>
+        <div className="w-11 h-10 mx-1 bg-gray-300 animate-pulse rounded-lg"></div>
       )}
       <div className="w-full">
         <h1 className="text-center mx-2">{item?.name}</h1>
