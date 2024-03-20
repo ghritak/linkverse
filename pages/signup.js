@@ -6,6 +6,7 @@ import { signup } from '../server-functions/auth/signup'
 import SignupForm from '../components/auth/SignupForm'
 import VerificationCode from '../components/auth/VerificationCode'
 import { sendOtp } from '../server-functions/auth/sendOtp'
+import { verifyOtp } from '../server-functions/auth/verifyOtp'
 
 const SignupPage = () => {
   const router = useRouter()
@@ -45,8 +46,12 @@ const SignupPage = () => {
     }
   }
 
-  const handleVerify = async () => {
+  const handleVerify = async (e) => {
+    e.preventDefault()
     try {
+      console.log(formData.email, otp)
+      const verifyRes = await verifyOtp({ otp, email: formData.email })
+      console.log(verifyRes)
       const data = await signup(formData)
       router.push('/login')
       console.log(data.message)
