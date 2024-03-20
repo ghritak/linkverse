@@ -60,7 +60,6 @@ const AddNewLink = ({
           ...prev,
           logo: `${process.env.NEXT_PUBLIC_API_URL}${res.filename}`
         }))
-        console.log(res)
       } catch (error) {
         console.log(error)
       } finally {
@@ -80,8 +79,9 @@ const AddNewLink = ({
     } else {
       newLinksArray = [...links, formData]
     }
-    console.log(newLinksArray)
     handleSaveLinks(newLinksArray)
+    setNewLinks([])
+    setFormData(initData)
   }
 
   const handleAddMore = (e) => {

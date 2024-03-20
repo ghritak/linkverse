@@ -152,7 +152,7 @@ const UserProfile = () => {
         setLoadingSaving(false)
         if (isModalOpen) setModalOpen(false)
       } catch (error) {
-        console.error('Error fetching user data:', error)
+        console.error('Error saving links:', error)
         setLoadingSaving(false)
       }
     }
