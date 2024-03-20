@@ -1,10 +1,11 @@
 import { useState } from 'react'
-import Input from '../components/input/Input'
 import Image from 'next/image'
-import { Button } from '../components/button/Button'
 import LinearLoading from '../components/loading/LinearLoading'
 import { useRouter } from 'next/router'
 import { signup } from '../server-functions/auth/signup'
+import SignupForm from '../components/auth/SignupForm'
+import VerificationCode from '../components/auth/VerificationCode'
+import { sendOtp } from '../server-functions/auth/sendOtp'
 
 const SignupPage = () => {
   const router = useRouter()
@@ -16,6 +17,8 @@ const SignupPage = () => {
   })
   const [loading, setLoading] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
+  const [isCodeSent, setCodeSent] = useState(false)
+  const [otp, setOtp] = useState('')
 
   const handleInputChange = (e) => {
     if (errorMessage) setErrorMessage('')
@@ -31,6 +34,19 @@ const SignupPage = () => {
     e.preventDefault()
     setLoading(true)
     try {
+      const data = await sendOtp(formData?.email)
+      setCodeSent(true)
+      console.log(data.message)
+    } catch (error) {
+      setErrorMessage(error?.message)
+      console.error('Error signing in:', error)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const handleVerify = async () => {
+    try {
       const data = await signup(formData)
       router.push('/login')
       console.log(data.message)
@@ -44,7 +60,11 @@ const SignupPage = () => {
 
   return (
     <div className="w-screen h-screen flex justify-center items-center bg-[#f0f4f9]">
-      <div className="bg-white w-[1000px] md:h-[480px] mx-8 sm:mx-[100px] rounded-3xl overflow-hidden">
+      <div
+        className={`bg-white w-[1000px] ${
+          !isCodeSent ? 'md:h-[480px]' : 'md:h-[340px]'
+        } mx-8 sm:mx-[100px] rounded-3xl overflow-hidden`}
+      >
         {loading ? <LinearLoading /> : <div className="h-1" />}
         <div className={`md:grid grid-cols-2 ${loading ? 'opacity-50' : ''} `}>
           <div className="col-span-1 m-10">
@@ -59,66 +79,22 @@ const SignupPage = () => {
           </div>
 
           <div className="col-span-1 h-full flex-1 m-10 md:m-0 md:mt-10 md:mr-10">
-            <form
-              onSubmit={handleSignup}
-              className="h-full flex flex-col justify-between"
-            >
-              <div>
-                <Input
-                  label="Name"
-                  type="text"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleInputChange}
-                  required
-                />
-                <Input
-                  label="User Name"
-                  type="text"
-                  name="username"
-                  value={formData.username}
-                  onChange={handleInputChange}
-                  required
-                />
-                <Input
-                  label="Email"
-                  type="text"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  required
-                />
-                <Input
-                  label="Password"
-                  type="password"
-                  name="password"
-                  value={formData.password}
-                  onChange={handleInputChange}
-                  required
-                />
-                {errorMessage && (
-                  <p className="text-red-400 text-sm -mb-3">{errorMessage}</p>
-                )}
-                <div className="mt-5">
-                  <p className="text-sm">
-                    Already have an account ?{' '}
-                    <span
-                      onClick={() => router.push('/login')}
-                      className="text-blue-600 font-medium cursor-pointer"
-                    >
-                      Log in
-                    </span>
-                    <br />
-                    <span className="text-blue-600 font-medium cursor-pointer">
-                      Learn more about using linkverse
-                    </span>
-                  </p>
-                </div>
-              </div>
-              <div className="mt-10 md:mt-auto">
-                <Button type="submit">Sign up</Button>
-              </div>
-            </form>
+            {!isCodeSent ? (
+              <SignupForm
+                handleSignup={handleSignup}
+                formData={formData}
+                handleInputChange={handleInputChange}
+                errorMessage={errorMessage}
+                router={router}
+              />
+            ) : (
+              <VerificationCode
+                otp={otp}
+                setOtp={setOtp}
+                handleVerify={handleVerify}
+                formData={formData}
+              />
+            )}
           </div>
         </div>
       </div>
