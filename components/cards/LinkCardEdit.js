@@ -20,9 +20,6 @@ const LinkCardEdit = ({
   const handleExternalLinkClick = (event, item) => {
     event.preventDefault()
     if (activity.editModeLinks) return
-    if (item.sensitive) {
-      return
-    }
     window.open(item.link, '_blank')
   }
 
