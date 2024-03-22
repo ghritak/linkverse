@@ -4,13 +4,12 @@ import { FiEdit, FiLogOut } from 'react-icons/fi'
 
 const MenuComponent = ({
   activity,
-  menuVisible,
   handleCancel,
-  setMenuVisible,
   handleEditLinks,
   handleEditProfile,
   handleLogout,
-  menuRef
+  menuRef,
+  setActivity
 }) => {
   useEffect(() => {
     document.addEventListener('mousedown', handleClickOutside)
@@ -25,7 +24,7 @@ const MenuComponent = ({
       !menuRef.current.contains(event.target) &&
       event.target.id !== 'menuButton'
     ) {
-      setMenuVisible(false)
+      setActivity((prev) => ({ ...prev, menuVisible: false }))
     }
   }
 
@@ -34,7 +33,12 @@ const MenuComponent = ({
       <div className="absolute top-6 right-8 md:right-20">
         {!(activity.editModeLinks || activity.editModeProfile) ? (
           <button
-            onClick={() => setMenuVisible(!menuVisible)}
+            onClick={() =>
+              setActivity((prev) => ({
+                ...prev,
+                menuVisible: !activity.menuVisible
+              }))
+            }
             id="menuButton"
             className=" cursor-pointer hover:scale-95 hover:bg-white hover:text-black border-[1px] flex items-center justify-center text-white rounded-full p-2 transition-all duration-300"
           >
@@ -54,7 +58,7 @@ const MenuComponent = ({
       <div
         ref={menuRef}
         className={`absolute top-16 right-10 md:right-24 text-black transition-opacity duration-200 bg-white rounded-md z-20 ${
-          menuVisible ? '' : 'opacity-0 pointer-events-none'
+          activity.menuVisible ? '' : 'opacity-0 pointer-events-none'
         }`}
       >
         <div
@@ -72,6 +76,19 @@ const MenuComponent = ({
           <FiEdit />
         </div>
         <div
+          onClick={() => {
+            setActivity((prev) => ({
+              ...prev,
+              settingsVisible: !activity.settingsVisible,
+              menuVisible: false
+            }))
+          }}
+          className="flex items-center p-2.5 w-40 border-b-[1px] cursor-pointer hover:bg-gray-200 rounded-t-md transition-all duration-300 justify-between"
+        >
+          <p className="mr-2">Settings</p>
+          <FiEdit />
+        </div>
+        <div
           onClick={handleLogout}
           className="flex items-center p-2.5 w-40  cursor-pointer hover:bg-gray-200 rounded-b-md transition-all duration-300 justify-between"
         >
@@ -84,47 +101,3 @@ const MenuComponent = ({
 }
 
 export default MenuComponent
-
-// <>
-// <div className="absolute top-6 right-8 md:right-20">
-//   {!activity.editModeLinks ? (
-//     <button
-//       onClick={() => setMenuVisible(!menuVisible)}
-//       id="menuButton"
-//       className=" cursor-pointer hover:scale-95 bg-white hover:text-black flex items-center justify-center text-white rounded-full p-2 transition-all duration-300"
-//     >
-//       <span id="menuButton">
-//         <BsThreeDotsVertical id="menuButton" color="black" />
-//       </span>
-//     </button>
-//   ) : (
-//     <button
-//       onClick={handleCancel}
-//       className="bg-white hover:text-white rounded-2xl hover:bg-transparent border-[1px] transition-all duration-300 px-4 py-1"
-//     >
-//       Cancel
-//     </button>
-//   )}
-// </div>
-// <div
-//   ref={menuRef}
-//   className={`absolute top-16 right-10 md:right-24 text-black transition-opacity duration-200 bg-white rounded-md z-20 ${
-//     menuVisible ? '' : 'opacity-0 pointer-events-none'
-//   }`}
-// >
-//   <div
-//     onClick={handleEditLinks}
-//     className="flex items-center p-2.5 w-32 border-b-[1px] cursor-pointer hover:bg-gray-200 rounded-t-md transition-all duration-300 justify-between"
-//   >
-//     <p className="mr-2">Edit Links</p>
-//     <FiEdit />
-//   </div>
-//   <div
-//     onClick={handleLogout}
-//     className="flex items-center p-2.5 w-32  cursor-pointer hover:bg-gray-200 rounded-b-md transition-all duration-300 justify-between"
-//   >
-//     <p className="mr-2">Log out </p>
-//     <FiLogOut />
-//   </div>
-// </div>
-// </>

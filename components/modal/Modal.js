@@ -8,7 +8,6 @@ const Modal = ({ isOpen, children }) => {
       }`}
     >
       <div className="absolute bg-black opacity-50 inset-0"></div>
-      {/* <div className="bg-white p-6 rounded shadow-lg z-50">{children}</div> */}
       <div className="shadow-lg z-50">{children}</div>
     </div>
   )

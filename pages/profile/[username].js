@@ -11,12 +11,12 @@ import LoadingProfile from '../../components/profile/LoadingProfile'
 import NotFoundProfile from '../../components/profile/NotFoundProfile'
 import AddNewLink from '../../components/profile/AddNewLink'
 import { updateProfile } from '../../server-functions/profile/updateProfile'
+import SettingsComponent from '../../components/profile/SettingsComponent'
 
 const UserProfile = () => {
   const router = useRouter()
   const { username } = router.query
   const [loading, setLoading] = useState(true)
-  const [menuVisible, setMenuVisible] = useState(false)
   const menuRef = useRef(null)
   const [userData, setUserData] = useState(null)
   const [links, setLinks] = useState([])
@@ -26,11 +26,13 @@ const UserProfile = () => {
   const [reRender, setRender] = useState(0)
   const [isModalOpen, setModalOpen] = useState(false)
   const [activity, setActivity] = useState({
+    menuVisible: false,
     editModeLinks: false,
     editModeProfile: false,
     userData: null,
     reRender: 0,
-    profileErrorMessage: ''
+    profileErrorMessage: '',
+    settingsVisible: false
   })
 
   useEffect(() => {
@@ -70,17 +72,22 @@ const UserProfile = () => {
   const handleClickDot = (e) => {
     e.preventDefault()
     e.stopPropagation()
-    // alert('he');
   }
 
   const handleEditLinks = () => {
-    setMenuVisible(false)
-    setActivity((prev) => ({ ...prev, editModeLinks: true }))
+    setActivity((prev) => ({
+      ...prev,
+      editModeLinks: true,
+      menuVisible: false
+    }))
   }
 
   const handleEditProfile = () => {
-    setMenuVisible(false)
-    setActivity((prev) => ({ ...prev, editModeProfile: true }))
+    setActivity((prev) => ({
+      ...prev,
+      editModeProfile: true,
+      menuVisible: false
+    }))
   }
 
   const handleCancel = () => {
@@ -109,7 +116,7 @@ const UserProfile = () => {
   }
 
   const handleLogout = () => {
-    setMenuVisible(false)
+    setActivity((prev) => ({ ...prev, menuVisible: false }))
     const confirmed = window.confirm('Are you sure you want to logout ?')
     if (confirmed) {
       localStorage.clear()
@@ -181,89 +188,97 @@ const UserProfile = () => {
   }
 
   return (
-    <div className="bg-gradient-to-tr from-gray-500 via-gray-700 to-black w-screen  h-screen flex justify-center overflow-hidden">
-      {!loading ? (
-        <>
-          {userData ? (
-            <div className="relative max-w-3xl  md:min-w-[700px] w-full ">
-              <div className="overflow-y-scroll h-screen px-8 md:px-20">
-                <MenuComponent
-                  activity={activity}
-                  menuVisible={menuVisible}
-                  handleCancel={handleCancel}
-                  setMenuVisible={setMenuVisible}
-                  handleEditLinks={handleEditLinks}
-                  handleEditProfile={handleEditProfile}
-                  handleLogout={handleLogout}
-                  menuRef={menuRef}
-                />
+    <div className="flex w-screen">
+      <div className="bg-gradient-to-tr from-gray-500 via-gray-700 to-black flex-1 h-screen flex justify-center overflow-hidden">
+        {!loading ? (
+          <>
+            {userData ? (
+              <div className="relative max-w-3xl  md:min-w-[700px] w-full ">
+                <div className="overflow-y-scroll h-screen px-8 md:px-20">
+                  <MenuComponent
+                    activity={activity}
+                    handleCancel={handleCancel}
+                    handleEditLinks={handleEditLinks}
+                    handleEditProfile={handleEditProfile}
+                    handleLogout={handleLogout}
+                    menuRef={menuRef}
+                    setActivity={setActivity}
+                  />
 
-                <UserData
-                  userData={userData}
-                  setUserData={setUserData}
-                  token={token}
-                  setRender={setRender}
-                  activity={activity}
-                  setActivity={setActivity}
-                />
+                  <UserData
+                    userData={userData}
+                    setUserData={setUserData}
+                    token={token}
+                    setRender={setRender}
+                    activity={activity}
+                    setActivity={setActivity}
+                  />
 
-                <div className="pt-10 pb-20">
-                  {links &&
-                    links.map((item, index) => {
-                      return (
-                        <LinkCardEdit
-                          key={index}
-                          index={index}
-                          item={item}
-                          activity={activity}
-                          handleInputChange={handleInputChange}
-                          handleClickDot={handleClickDot}
-                          renderLinView={renderLinView}
-                          handleDeleteLink={handleDeleteLink}
-                        />
-                      )
-                    })}
-                  {!(activity.editModeLinks || activity.editModeProfile) && (
-                    <AddNewLink
-                      links={links}
-                      loadingSaving={loadingSaving}
-                      isModalOpen={isModalOpen}
-                      setModalOpen={setModalOpen}
-                      handleSaveLinks={handleSaveLinks}
-                    />
-                  )}
+                  <div className="pt-10 pb-20">
+                    {links &&
+                      links.map((item, index) => {
+                        return (
+                          <LinkCardEdit
+                            key={index}
+                            index={index}
+                            item={item}
+                            activity={activity}
+                            handleInputChange={handleInputChange}
+                            handleClickDot={handleClickDot}
+                            renderLinView={renderLinView}
+                            handleDeleteLink={handleDeleteLink}
+                          />
+                        )
+                      })}
+                    {!(activity.editModeLinks || activity.editModeProfile) && (
+                      <AddNewLink
+                        links={links}
+                        loadingSaving={loadingSaving}
+                        isModalOpen={isModalOpen}
+                        setModalOpen={setModalOpen}
+                        handleSaveLinks={handleSaveLinks}
+                      />
+                    )}
+                  </div>
                 </div>
+                {activity.editModeLinks && (
+                  <div className="absolute flex-1 w-full bottom-4 md:bottom-10 left-0 px-10 sm:px-20 ">
+                    <Button
+                      loading={loadingSaving}
+                      onClick={() => handleSaveLinks(links)}
+                      className={'w-full h-12'}
+                    >
+                      Save Links
+                    </Button>
+                  </div>
+                )}
+                {activity.editModeProfile && (
+                  <div className="absolute flex-1 w-full bottom-4 md:bottom-10 left-0 px-10 sm:px-20 ">
+                    <Button
+                      loading={loadingSaving}
+                      onClick={() => handleSaveProfile(userData)}
+                      className={'w-full h-12'}
+                    >
+                      Save Profile
+                    </Button>
+                  </div>
+                )}
               </div>
-              {activity.editModeLinks && (
-                <div className="absolute flex-1 w-full bottom-4 md:bottom-10 left-0 px-10 sm:px-20 ">
-                  <Button
-                    loading={loadingSaving}
-                    onClick={() => handleSaveLinks(links)}
-                    className={'w-full h-12'}
-                  >
-                    Save Links
-                  </Button>
-                </div>
-              )}
-              {activity.editModeProfile && (
-                <div className="absolute flex-1 w-full bottom-4 md:bottom-10 left-0 px-10 sm:px-20 ">
-                  <Button
-                    loading={loadingSaving}
-                    onClick={() => handleSaveProfile(userData)}
-                    className={'w-full h-12'}
-                  >
-                    Save Profile
-                  </Button>
-                </div>
-              )}
-            </div>
-          ) : (
-            <NotFoundProfile username={username} router={router} />
-          )}
-        </>
-      ) : (
-        <LoadingProfile />
-      )}
+            ) : (
+              <NotFoundProfile username={username} router={router} />
+            )}
+          </>
+        ) : (
+          <LoadingProfile />
+        )}
+      </div>
+      <div
+        className={`${
+          activity.settingsVisible ? 'w-[600px]' : 'w-0'
+        } h-screen bg-[#1a1f27] transition-all duration-300`}
+      >
+        <SettingsComponent setActivity={setActivity} />
+      </div>
     </div>
   )
 }
