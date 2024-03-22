@@ -60,7 +60,10 @@ const SignupForm = ({
                 Log in
               </span>
               <br />
-              <span className="text-blue-600 font-medium cursor-pointer">
+              <span
+                onClick={() => router.push('/learnmore')}
+                className="text-blue-600 font-medium cursor-pointer"
+              >
                 Learn more about using linkverse
               </span>
             </p>

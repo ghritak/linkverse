@@ -91,7 +91,10 @@ const LoginPage = () => {
                 </p>
                 <div className="mt-5">
                   <p className="text-sm">
-                    <span className="text-blue-600 font-medium cursor-pointer">
+                    <span
+                      onClick={() => router.push('/learnmore')}
+                      className="text-blue-600 font-medium cursor-pointer"
+                    >
                       Learn more about using linkverse
                     </span>
                     <br />

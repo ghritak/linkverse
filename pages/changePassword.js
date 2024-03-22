@@ -154,7 +154,10 @@ const LoginPage = () => {
                   </p>
                 )}
                 <div className="mt-5 text-sm">
-                  <span className={linkButton}>
+                  <span
+                    onClick={() => router.push('/learnmore')}
+                    className={linkButton}
+                  >
                     Learn more about using linkverse
                   </span>
                   <p className=" mt-1">
