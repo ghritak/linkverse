@@ -1,9 +1,10 @@
 import { useState } from 'react'
 import { deleteAccount } from '../../../server-functions/profile/deleteAccount'
-import { MdOutlineDeleteSweep } from 'react-icons/md'
+import { FaRotate } from 'react-icons/fa6'
+
 import { useRouter } from 'next/router'
 
-const DeleteButton = ({ token, userData }) => {
+const ChangePassword = ({ token, userData }) => {
   const [isWarned, setWarned] = useState(false)
   const router = useRouter()
 
@@ -31,8 +32,8 @@ const DeleteButton = ({ token, userData }) => {
       }`}
     >
       <div className="flex items-center">
-        <MdOutlineDeleteSweep className="mr-4" size={22} />
-        <p>Delete Account</p>
+        <FaRotate className="mr-4" size={18} />
+        <p>Change Password</p>
       </div>
       <div
         className={`flex items-center space-x-3 overflow-hidden ${
@@ -58,4 +59,4 @@ const DeleteButton = ({ token, userData }) => {
   )
 }
 
-export default DeleteButton
+export default ChangePassword
