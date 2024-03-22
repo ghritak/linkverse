@@ -1,13 +1,15 @@
 import { Button } from '../button/Button'
 import Input from '../input/Input'
 import { IoMailUnreadOutline } from 'react-icons/io5'
+import Timer from '../timer/Timer'
 
 const VerificationCode = ({
   handleVerify,
   errorMessage,
   otp,
   setOtp,
-  formData
+  formData,
+  sendVerificationCode
 }) => {
   return (
     <>
@@ -39,9 +41,12 @@ const VerificationCode = ({
             required
             maxLength="6"
           />
-          {errorMessage && (
-            <p className="text-red-400 text-sm -mb-6">{errorMessage}hello</p>
-          )}
+          <div className="-mb-6 flex justify-between">
+            {errorMessage && (
+              <p className="text-red-400 text-sm ">{errorMessage}</p>
+            )}
+            <Timer duration={60} onClick={sendVerificationCode} />
+          </div>
         </div>
         <div className="mt-10">
           <Button type="submit">Verify</Button>

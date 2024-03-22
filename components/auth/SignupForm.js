@@ -2,7 +2,7 @@ import { Button } from '../button/Button'
 import Input from '../input/Input'
 
 const SignupForm = ({
-  handleSignup,
+  sendVerificationCode,
   formData,
   handleInputChange,
   errorMessage,
@@ -11,7 +11,7 @@ const SignupForm = ({
   return (
     <>
       <form
-        onSubmit={handleSignup}
+        onSubmit={sendVerificationCode}
         className="h-full flex flex-col justify-between"
       >
         <div>

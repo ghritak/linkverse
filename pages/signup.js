@@ -7,6 +7,7 @@ import SignupForm from '../components/auth/SignupForm'
 import VerificationCode from '../components/auth/VerificationCode'
 import { sendOtp } from '../server-functions/auth/sendOtp'
 import { verifyOtp } from '../server-functions/auth/verifyOtp'
+import { checkUserExist } from '../server-functions/auth/checkUserExist'
 
 const SignupPage = () => {
   const router = useRouter()
@@ -31,10 +32,14 @@ const SignupPage = () => {
     }))
   }
 
-  const handleSignup = async (e) => {
+  const sendVerificationCode = async (e) => {
     e.preventDefault()
     setLoading(true)
     try {
+      await checkUserExist({
+        email: formData.email,
+        username: formData.username
+      })
       const data = await sendOtp(formData?.email)
       setCodeSent(true)
       console.log(data.message)
@@ -86,7 +91,7 @@ const SignupPage = () => {
           <div className="col-span-1 h-full flex-1 m-10 md:m-0 md:mt-10 md:mr-10">
             {!isCodeSent ? (
               <SignupForm
-                handleSignup={handleSignup}
+                sendVerificationCode={sendVerificationCode}
                 formData={formData}
                 handleInputChange={handleInputChange}
                 errorMessage={errorMessage}
@@ -98,6 +103,8 @@ const SignupPage = () => {
                 setOtp={setOtp}
                 handleVerify={handleVerify}
                 formData={formData}
+                errorMessage={errorMessage}
+                sendVerificationCode={sendVerificationCode}
               />
             )}
           </div>
