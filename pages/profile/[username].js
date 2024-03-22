@@ -11,7 +11,7 @@ import LoadingProfile from '../../components/profile/LoadingProfile'
 import NotFoundProfile from '../../components/profile/NotFoundProfile'
 import AddNewLink from '../../components/profile/AddNewLink'
 import { updateProfile } from '../../server-functions/profile/updateProfile'
-import SettingsComponent from '../../components/profile/SettingsComponent'
+import SettingsComponent from '../../components/profile/settings/SettingsComponent'
 
 const UserProfile = () => {
   const router = useRouter()

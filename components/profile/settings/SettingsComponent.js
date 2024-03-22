@@ -1,10 +1,12 @@
 import { IoClose } from 'react-icons/io5'
+import { MdOutlineDeleteSweep } from 'react-icons/md'
+import DeleteButton from './DeleteButton'
 
 const SettingsComponent = ({ setActivity }) => {
   return (
     <div className="text-white">
       <div>
-        <div className="flex items-center justify-between p-10 border-b-[1px] pb-5 border-gray-700">
+        <div className="flex items-center justify-between p-10 border-b-[1px] py-6 border-gray-700">
           <h1 className="text-3xl font-semibold">Settings</h1>
           <div
             onClick={() =>
@@ -15,8 +17,11 @@ const SettingsComponent = ({ setActivity }) => {
             <IoClose color="white" size={30} />
           </div>
         </div>
-        {/* <div className="w-full h-screen bg-[#212630]"></div> */}
-        <div></div>
+        <div>
+          <DeleteButton
+            icon={<MdOutlineDeleteSweep className="mr-4" size={22} />}
+          />
+        </div>
       </div>
     </div>
   )
