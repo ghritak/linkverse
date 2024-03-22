@@ -5,6 +5,7 @@ import Input from '../../input/Input'
 import CustomLoader from '../../loading/CustomLoader'
 import { sendOtp } from '../../../server-functions/auth/sendOtp'
 import { verifyOtp } from '../../../server-functions/auth/verifyOtp'
+import { changePassword } from '../../../server-functions/profile/changePassword'
 
 const ChangePassword = ({ userData }) => {
   const [isExpanded, setExapanded] = useState(false)
@@ -40,19 +41,23 @@ const ChangePassword = ({ userData }) => {
       setLoading(false)
     } catch (error) {
       setLoading(false)
-
+      setErrorMessage(error?.message)
       console.log('Could not send verification code.', error)
     }
   }
 
   const handleVerify = async (e) => {
     e.stopPropagation()
+    setLoading(true)
     try {
-      const verifyRes = await verifyOtp({ otp, email: userData.email })
-      console.log(verifyRes)
+      await verifyOtp({ otp, email: userData.email })
+      await changePassword({ email: userData.email, password })
+      console.log('Password changed succesfully.')
+      setLoading(false)
     } catch (error) {
       setErrorMessage(error?.message)
-      console.log('Could not delete account', error)
+      setLoading(false)
+      console.log('Could not change password', error)
     }
   }
 
