@@ -83,7 +83,10 @@ const LoginPage = () => {
                 {errorMessage && (
                   <p className="text-red-400 text-sm mb-2">{errorMessage}</p>
                 )}
-                <p className="text-blue-600 font-medium text-sm cursor-pointer">
+                <p
+                  onClick={() => router.push('/changePassword')}
+                  className="text-blue-600 font-medium text-sm cursor-pointer"
+                >
                   Forgot password ?
                 </p>
                 <div className="mt-5">

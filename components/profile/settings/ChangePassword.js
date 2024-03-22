@@ -125,7 +125,8 @@ const ChangePassword = ({ userData }) => {
                 <div>
                   <p className="text-xl font-medium ">Verification Code</p>
                   <p className="my-5 text-sm">
-                    A 6-digit verification code has been sent your email &quot;
+                    A 6-digit verification code has been sent to your email
+                    &quot;
                     {userData?.email}&quot;
                   </p>
                   <Input
