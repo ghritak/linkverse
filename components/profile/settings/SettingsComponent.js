@@ -1,8 +1,7 @@
 import { IoClose } from 'react-icons/io5'
-import { MdOutlineDeleteSweep } from 'react-icons/md'
 import DeleteButton from './DeleteButton'
 
-const SettingsComponent = ({ setActivity }) => {
+const SettingsComponent = ({ setActivity, token, userData }) => {
   return (
     <div className="text-white">
       <div>
@@ -18,9 +17,7 @@ const SettingsComponent = ({ setActivity }) => {
           </div>
         </div>
         <div>
-          <DeleteButton
-            icon={<MdOutlineDeleteSweep className="mr-4" size={22} />}
-          />
+          <DeleteButton token={token} userData={userData} />
         </div>
       </div>
     </div>

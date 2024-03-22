@@ -277,7 +277,11 @@ const UserProfile = () => {
           activity.settingsVisible ? 'w-full lg:w-[400px] xl:w-[600px]' : 'w-0'
         } h-screen bg-[#1a1f27] transition-all duration-300`}
       >
-        <SettingsComponent setActivity={setActivity} />
+        <SettingsComponent
+          setActivity={setActivity}
+          token={token}
+          userData={userData}
+        />
       </div>
     </div>
   )
