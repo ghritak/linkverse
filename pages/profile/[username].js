@@ -188,7 +188,7 @@ const UserProfile = () => {
   }
 
   return (
-    <div className="flex w-screen">
+    <div className="flex w-screen overflow-hidden">
       <div className="bg-gradient-to-tr from-gray-500 via-gray-700 to-black flex-1 h-screen flex justify-center overflow-hidden">
         {!loading ? (
           <>
@@ -274,7 +274,7 @@ const UserProfile = () => {
       </div>
       <div
         className={`${
-          activity.settingsVisible ? 'w-[600px]' : 'w-0'
+          activity.settingsVisible ? 'w-full lg:w-[400px] xl:w-[600px]' : 'w-0'
         } h-screen bg-[#1a1f27] transition-all duration-300`}
       >
         <SettingsComponent setActivity={setActivity} />
