@@ -23,7 +23,7 @@ const LearnMorePage = () => {
           </div>
         </div>
         <h1 className="text-3xl font-bold mb-4 text-tailwind-blue-500">
-          Welcome to Linkverse!
+          Welcome
         </h1>
         <p className="text-lg text-gray-800 mb-6">
           Linkverse is a platform designed to streamline the way you share and
