@@ -11,20 +11,29 @@ Welcome to Linkverse, a simple yet powerful tool for creating a personalized lan
 
 ## Getting Started
 
-1. Clone the repository:
+To get started with this project, follow these steps:
 
-   ```bash
-   git clone https://github.com/your-username/linkhub.git
-   
-2. Install dependencies:
+1. **Clone the repository**:
 
-   ```bash
+   ```
+   git clone https://github.com/ghritak/linkverse.git
+   ```
+
+2. **Install dependencies**:
+
+   ```
    npm install
+   ```
 
-3. Start the development server:
+3. **Start the development server**:
 
-   ```bash
+   ```
    npm start
+   ```
+
+4. **Visit the application in your browser**:
+   - Open your web browser and navigate to [http://localhost:3000](http://localhost:4000).
+
 
 ##Contributing
 
