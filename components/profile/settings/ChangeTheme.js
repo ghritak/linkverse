@@ -48,18 +48,10 @@ const ChangeTheme = () => {
             }`}
           >
             <div
-              onClick={handleClose}
-              className={
-                'px-8 py-1 rounded-lg cursor-pointer hover:bg-green-600 transition-all duration-300  bg-green-500 font-medium'
-              }
-            >
-              No
-            </div>
-            <div
               onClick={handleDelete}
-              className="px-8 py-1 rounded-lg cursor-pointer hover:bg-red-600 transition-all duration-300 bg-red-500 font-medium"
+              className="px-8 py-1 rounded-lg cursor-pointer hover:bg-blue-600 transition-all duration-300 bg-blue-500 font-medium"
             >
-              Yes
+              Change
             </div>
           </div>
         </div>
