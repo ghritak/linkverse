@@ -1,6 +1,7 @@
 import { IoClose } from 'react-icons/io5'
 import DeleteAccount from './DeleteAccount'
 import ChangePassword from './ChangePassword'
+import ChangeTheme from './ChangeTheme'
 
 const SettingsComponent = ({ setActivity, token, userData }) => {
   return (
@@ -18,6 +19,7 @@ const SettingsComponent = ({ setActivity, token, userData }) => {
           </div>
         </div>
         <div>
+          <ChangeTheme token={token} userData={userData} />
           <DeleteAccount token={token} userData={userData} />
           <ChangePassword token={token} userData={userData} />
         </div>
