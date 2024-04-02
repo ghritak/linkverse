@@ -194,7 +194,7 @@ const UserProfile = () => {
           <>
             {userData ? (
               <div className="relative max-w-3xl  md:min-w-[700px] w-full ">
-                <div className="overflow-y-scroll h-screen px-8 md:px-20">
+                <div className="overflow-y-scroll h-screen px-8 md:px-20 ">
                   <MenuComponent
                     activity={activity}
                     handleCancel={handleCancel}

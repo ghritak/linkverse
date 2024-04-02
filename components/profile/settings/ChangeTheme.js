@@ -6,11 +6,6 @@ const ChangeTheme = () => {
   const [isExpanded, setExpanded] = useState(false)
   const router = useRouter()
 
-  const handleClose = (e) => {
-    e.stopPropagation()
-    setExpanded(false)
-  }
-
   const handleDelete = async (e) => {
     e.stopPropagation()
     try {

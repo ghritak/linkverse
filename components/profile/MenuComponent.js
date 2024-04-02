@@ -30,7 +30,7 @@ const MenuComponent = ({
 
   return (
     <>
-      <div className="absolute top-6 right-8 md:right-20">
+      <div className="absolute top-6 right-8 md:right-20 z-50">
         {!(activity.editModeLinks || activity.editModeProfile) ? (
           <button
             onClick={() =>
@@ -49,7 +49,7 @@ const MenuComponent = ({
         ) : (
           <button
             onClick={handleCancel}
-            className="hover:bg-white text-white z-50 hover:text-black rounded-2xl hover:bg-transparent border-[1px] transition-all duration-300 px-4 py-1"
+            className="hover:bg-white z-50 text-white z-50 hover:text-black rounded-2xl hover:bg-transparent border-[1px] transition-all duration-300 px-4 py-1"
           >
             Cancel
           </button>
