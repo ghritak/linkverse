@@ -19,7 +19,11 @@ const SettingsComponent = ({ setActivity, token, userData }) => {
           </div>
         </div>
         <div>
-          <ChangeTheme token={token} userData={userData} />
+          <ChangeTheme
+            token={token}
+            userData={userData}
+            setActivity={setActivity}
+          />
           <DeleteAccount token={token} userData={userData} />
           <ChangePassword token={token} userData={userData} />
         </div>

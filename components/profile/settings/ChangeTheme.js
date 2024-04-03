@@ -1,22 +1,27 @@
-import { useState } from 'react'
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect, useState } from 'react'
 import { BsViewList } from 'react-icons/bs'
 import CustomLoader from '../../loading/CustomLoader'
 import { themeCodes } from './constants'
 import { changeTheme } from '../../../server-functions/profile/changeTheme'
 
-const ChangeTheme = ({ token, userData }) => {
+const ChangeTheme = ({ token, userData, setActivity }) => {
   const [isExpanded, setExpanded] = useState(false)
   const [isUpdating, setUpdating] = useState(false)
   const [themeCode, setThemeCode] = useState(1)
 
+  useEffect(() => {
+    setThemeCode(parseInt(userData?.theme))
+  }, [userData?.theme])
+
   const handleChange = async (e) => {
     e.stopPropagation()
     try {
-      //pass
       setUpdating(true)
       const res = await changeTheme(token, userData.email, themeCode)
       console.log(res)
       setUpdating(false)
+      setActivity((prev) => ({ ...prev, reRender: prev.reRender + 1 }))
     } catch (error) {
       setUpdating(false)
       console.log('Could not change theme', error)
@@ -52,10 +57,6 @@ const ChangeTheme = ({ token, userData }) => {
               />
             ))}
           </div>
-          {/* <div className="text-sm">
-            <p>Are you sure you want to delete your account?</p>
-            <p className="mt-2">This can&apos;t be reversible.</p>
-          </div> */}
           <div
             className={`flex items-center space-x-3 mt-5 overflow-hidden ${
               isExpanded ? 'h-full' : 'h-0'

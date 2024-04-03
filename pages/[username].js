@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { Button } from '../components/button/Button'
 import { MdOutlineAddLink } from 'react-icons/md'
 import { getUser } from '../server-functions/profile/getUser'
+import { getThemeColor } from '../utils'
 
 const UserProfile = ({ userData }) => {
   const router = useRouter()
@@ -12,9 +13,13 @@ const UserProfile = ({ userData }) => {
   const handleClickDot = (e) => {
     e.stopPropagation()
   }
-
+  // bg-gradient-to-tr from-gray-500 via-gray-700 to-black
   return (
-    <div className="bg-gradient-to-tr from-gray-500 via-gray-700 to-black w-screen h-screen flex justify-center overflow-hidden">
+    <div
+      className={` ${getThemeColor(
+        userData?.theme
+      )}  w-screen h-screen flex justify-center overflow-hidden`}
+    >
       <div className="relative max-w-3xl flex flex-col md:min-w-[700px]  overflow-y-scroll w-full px-8 md:px-20">
         {userData ? (
           <div>

@@ -12,6 +12,7 @@ import NotFoundProfile from '../../components/profile/NotFoundProfile'
 import AddNewLink from '../../components/profile/AddNewLink'
 import { updateProfile } from '../../server-functions/profile/updateProfile'
 import SettingsComponent from '../../components/profile/settings/SettingsComponent'
+import { getThemeColor } from '../../utils'
 
 const UserProfile = () => {
   const router = useRouter()
@@ -23,7 +24,6 @@ const UserProfile = () => {
   const [renderLinView, setRenderLinkView] = useState(0)
   const [token, setToken] = useState(null)
   const [loadingSaving, setLoadingSaving] = useState(false)
-  const [reRender, setRender] = useState(0)
   const [isModalOpen, setModalOpen] = useState(false)
   const [activity, setActivity] = useState({
     menuVisible: false,
@@ -44,7 +44,7 @@ const UserProfile = () => {
       setToken(token)
       fetchUserData(token)
     }
-  }, [username, reRender])
+  }, [username, activity.reRender])
 
   const fetchUserData = async (token) => {
     if (username) {
@@ -58,7 +58,8 @@ const UserProfile = () => {
           name: data.name,
           email: data.email,
           username: data.username,
-          bio: data.bio
+          bio: data.bio,
+          theme: data?.theme || '1'
         })
         setLinks(data?.links)
       } catch (error) {
@@ -154,8 +155,11 @@ const UserProfile = () => {
           token
         )
         console.log(response)
-        setRender((prev) => prev + 1)
-        setActivity((prev) => ({ ...prev, editModeLinks: false }))
+        setActivity((prev) => ({
+          ...prev,
+          editModeLinks: false,
+          reRender: prev.reRender + 1
+        }))
         setLoadingSaving(false)
         if (isModalOpen) setModalOpen(false)
       } catch (error) {
@@ -174,7 +178,7 @@ const UserProfile = () => {
         if (activity?.userData?.username !== data?.username) {
           router.push(`/profile/${data.username}`)
         } else {
-          setRender((prev) => prev + 1)
+          setActivity((prev) => ({ ...prev, reRender: prev.reRender + 1 }))
         }
         setActivity((prev) => ({ ...prev, editModeProfile: false }))
         setLoadingSaving(false)
@@ -189,7 +193,11 @@ const UserProfile = () => {
 
   return (
     <div className="flex w-screen overflow-hidden">
-      <div className="bg-gradient-to-tr from-gray-500 via-gray-700 to-black flex-1 h-screen flex justify-center overflow-hidden">
+      <div
+        className={`${getThemeColor(
+          userData?.theme
+        )} flex-1 h-screen flex justify-center overflow-hidden`}
+      >
         {!loading ? (
           <>
             {userData ? (
@@ -209,7 +217,6 @@ const UserProfile = () => {
                     userData={userData}
                     setUserData={setUserData}
                     token={token}
-                    setRender={setRender}
                     activity={activity}
                     setActivity={setActivity}
                   />
