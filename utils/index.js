@@ -10,7 +10,6 @@ export const getThemeColor = (themeCode) => {
     const colorObject = themeCodes.find(
       (item) => item.id === parseInt(themeCode)
     )
-
     return colorObject.color
   } else {
     return 'bg-gradient-to-tr from-gray-500 via-gray-700 to-black'

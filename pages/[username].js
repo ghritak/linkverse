@@ -13,7 +13,7 @@ const UserProfile = ({ userData }) => {
   const handleClickDot = (e) => {
     e.stopPropagation()
   }
-  // bg-gradient-to-tr from-gray-500 via-gray-700 to-black
+
   return (
     <div
       className={` ${getThemeColor(
