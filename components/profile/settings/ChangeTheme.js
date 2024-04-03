@@ -1,22 +1,25 @@
 import { useState } from 'react'
 import { BsViewList } from 'react-icons/bs'
 import CustomLoader from '../../loading/CustomLoader'
+import { themeCodes } from './constants'
+import { changeTheme } from '../../../server-functions/profile/changeTheme'
 
-const ChangeTheme = () => {
+const ChangeTheme = ({ token, userData }) => {
   const [isExpanded, setExpanded] = useState(false)
   const [isUpdating, setUpdating] = useState(false)
+  const [themeCode, setThemeCode] = useState(1)
 
   const handleChange = async (e) => {
     e.stopPropagation()
     try {
       //pass
       setUpdating(true)
-      setTimeout(() => {
-        console.log('clicked')
-        setUpdating(false)
-      }, 3000)
+      const res = await changeTheme(token, userData.email, themeCode)
+      console.log(res)
+      setUpdating(false)
     } catch (error) {
-      console.log('Could not delete account', error)
+      setUpdating(false)
+      console.log('Could not change theme', error)
     }
   }
   return (
@@ -32,24 +35,27 @@ const ChangeTheme = () => {
       </div>
       <div
         className={` transition-all duration-300 mx-8 ${
-          isExpanded ? 'h-[560px]' : 'h-0'
+          isExpanded ? 'h-[510px]' : 'h-0'
         }`}
       >
         <div className="py-5">
           <div className="flex flex-wrap">
-            <div className="bg-gradient-to-tr from-gray-500 via-gray-700 to-black w-24 h-44 mr-6 mb-6 rounded-lg cursor-pointer hover:scale-95 transition-all duration-300 border-2 border-blue-600" />
-            <div className="bg-gradient-to-br from-yellow-400 via-orange-400 to-red-700 w-24 h-44 mr-6 mb-6 rounded-lg cursor-pointer hover:scale-95 transition-all duration-300" />
-            <div className="bg-gradient-to-tr from-yellow-500 via-[#D3F517] to-green-400 w-24 h-44 mr-6 mb-6 rounded-lg cursor-pointer hover:scale-95 transition-all duration-300" />
-            <div className="bg-gradient-to-br from-white via-gray-300 to-gray-600 w-24 h-44 mr-6 mb-6 rounded-lg cursor-pointer hover:scale-95 transition-all duration-300" />
-            <div className="bg-gradient-to-tr from-blue-100 via-blue-400 to-blue-700 w-24 h-44 mr-6 mb-6 rounded-lg cursor-pointer hover:scale-95 transition-all duration-300" />
-            <div className="bg-gradient-to-tr from-teal-200 via-teal-500 to-teal-800 w-24 h-44 mr-6 mb-6 rounded-lg cursor-pointer hover:scale-95 transition-all duration-300" />
-            <div className="bg-gradient-to-tr from-sky-500 via-sky-700 to-sky-950 w-24 h-44 mr-6 mb-6 rounded-lg cursor-pointer hover:scale-95 transition-all duration-300" />
-            <div className="bg-gradient-to-tr from-pink-200 via-pink-500 to-pink-700 w-24 h-44 mr-6 mb-6 rounded-lg cursor-pointer hover:scale-95 transition-all duration-300" />
+            {themeCodes.map((item) => (
+              <div
+                key={item.id}
+                onClick={() => setThemeCode(item.id)}
+                className={`${
+                  item.color
+                } w-24 h-44 mr-6 mb-6 rounded-lg cursor-pointer hover:scale-95 transition-transform duration-300 ${
+                  item.id === themeCode ? 'border-2 border-blue-500' : ''
+                }`}
+              />
+            ))}
           </div>
-          <div className="text-sm">
+          {/* <div className="text-sm">
             <p>Are you sure you want to delete your account?</p>
             <p className="mt-2">This can&apos;t be reversible.</p>
-          </div>
+          </div> */}
           <div
             className={`flex items-center space-x-3 mt-5 overflow-hidden ${
               isExpanded ? 'h-full' : 'h-0'
