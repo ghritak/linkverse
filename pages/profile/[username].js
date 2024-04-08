@@ -32,7 +32,8 @@ const UserProfile = () => {
     userData: null,
     reRender: 0,
     profileErrorMessage: '',
-    settingsVisible: false
+    settingsVisible: false,
+    background: 'bg-gradient-to-tr from-gray-500 via-gray-700 to-black'
   })
 
   useEffect(() => {
@@ -50,9 +51,12 @@ const UserProfile = () => {
     if (username) {
       try {
         const data = await getUserProfile(username, token)
+        const background = getThemeBackgroundColor(data?.theme)
+        console.log(background)
         setActivity((prev) => ({
           ...prev,
-          userData: data
+          userData: data,
+          background: background
         }))
         setUserData({
           name: data.name,
@@ -194,9 +198,11 @@ const UserProfile = () => {
   return (
     <div className="flex w-screen overflow-hidden">
       <div
-        className={`${getThemeBackgroundColor(
-          userData?.theme
-        )} flex-1 h-screen flex justify-center overflow-hidden`}
+        key={activity.background}
+        className="flex-1 h-screen flex justify-center overflow-hidden"
+        style={{
+          background: getThemeBackgroundColor(activity?.userData?.theme)
+        }}
       >
         {!loading ? (
           <>

@@ -2,8 +2,9 @@ import Image from 'next/image'
 import { IoShareOutline } from 'react-icons/io5'
 import { Button } from '../button/Button'
 import { useState } from 'react'
+import { getThemeColor } from '../../utils'
 
-const LinkCard = ({ item, handleClickDot }) => {
+const LinkCard = ({ item, handleClickDot, userData }) => {
   const [isWarning, setWarning] = useState(false)
 
   const handleExternalLinkClick = (event, item) => {
@@ -25,6 +26,7 @@ const LinkCard = ({ item, handleClickDot }) => {
       <div
         onClick={(e) => handleExternalLinkClick(e, item)}
         className="flex z-10 justify-between items-center w-full flex-1 border-[1px] p-2 rounded-lg text-white bg-gray-600 hover:scale-[102%] cursor-pointer transition-all duration-300"
+        style={{ backgroundColor: getThemeColor(userData?.theme) }}
       >
         {item.logo ? (
           <Image

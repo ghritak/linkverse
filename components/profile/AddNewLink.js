@@ -121,9 +121,8 @@ const AddNewLink = ({
     <div className="mb-10">
       <div
         onClick={() => setModalOpen(true)}
-        className={`my-6 w-full text-center  border-[1px] py-3 rounded-lg text-white ${getThemeColor(
-          userData?.theme
-        )} hover:scale-[102%] cursor-pointer transition-all duration-300`}
+        className="my-6 w-full text-center  border-[1px] py-3 rounded-lg text-white hover:scale-[102%] cursor-pointer transition-all duration-300"
+        style={{ backgroundColor: getThemeColor(userData?.theme) }}
       >
         {isModalOpen ? 'Cancel' : 'Add new link +'}
       </div>

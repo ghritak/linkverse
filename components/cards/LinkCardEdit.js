@@ -31,7 +31,8 @@ const LinkCardEdit = ({
       onClick={(e) => handleExternalLinkClick(e, item)}
       className={`flex justify-between items-center my-6 w-full flex-1 border-[1px] p-2 rounded-lg text-white ${
         activity.editModeLinks ? '' : 'hover:scale-[102%] cursor-pointer'
-      } transition-all duration-300 ${getThemeColor(userData?.theme)}`}
+      } transition-all duration-300`}
+      style={{ backgroundColor: getThemeColor(userData?.theme) }}
     >
       {item.logo ? (
         <Image

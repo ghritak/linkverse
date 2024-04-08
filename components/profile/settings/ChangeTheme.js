@@ -49,11 +49,10 @@ const ChangeTheme = ({ token, userData, setActivity }) => {
               <div
                 key={item.id}
                 onClick={() => setThemeCode(item.id)}
-                className={`${
-                  item.backgroundColor
-                } w-24 h-44 mr-6 mb-6 rounded-lg cursor-pointer hover:scale-95 transition-transform duration-300 ${
+                className={`w-24 h-44 mr-6 mb-6 rounded-lg cursor-pointer hover:scale-95 transition-transform duration-300 ${
                   item.id === themeCode ? 'border-2 border-blue-500' : ''
                 }`}
+                style={{ background: item.backgroundColor }}
               />
             ))}
           </div>
