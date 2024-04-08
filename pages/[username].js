@@ -18,12 +18,12 @@ const UserProfile = ({ userData }) => {
 
   return (
     <div
-      className="w-screen h-screen flex justify-center overflow-hidden"
+      className="w-screen min-h-screen flex justify-center"
       style={{
         background: getThemeBackgroundColor(userData?.theme)
       }}
     >
-      <div className="relative max-w-3xl flex flex-col md:min-w-[700px]  overflow-y-scroll w-full px-8 md:px-20">
+      <div className="relative max-w-3xl flex flex-col md:min-w-[700px] w-full px-8 md:px-20">
         {userData ? (
           <div>
             <div className="w-full flex justify-center mt-10">

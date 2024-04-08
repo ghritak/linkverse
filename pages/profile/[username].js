@@ -196,10 +196,9 @@ const UserProfile = () => {
   }
 
   return (
-    <div className="flex w-screen overflow-hidden">
+    <div className="flex w-screen">
       <div
-        key={activity.background}
-        className="flex-1 h-screen flex justify-center overflow-hidden"
+        className="flex-1 min-h-screen flex justify-center"
         style={{
           background: getThemeBackgroundColor(activity?.userData?.theme)
         }}
@@ -208,7 +207,7 @@ const UserProfile = () => {
           <>
             {userData ? (
               <div className="relative max-w-3xl  md:min-w-[700px] w-full ">
-                <div className="overflow-y-scroll h-screen px-8 md:px-20 ">
+                <div className=" px-8 md:px-20 ">
                   <MenuComponent
                     activity={activity}
                     handleCancel={handleCancel}
