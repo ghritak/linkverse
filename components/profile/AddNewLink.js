@@ -10,6 +10,7 @@ import { getLinkData } from '../../server-functions/others/getLinkData'
 import { uploadLogo } from '../../server-functions/others/uploadLogo'
 import Switch from '../switch/Switch'
 import Color from '../../styles/Colors'
+import { getThemeColor } from '../../utils'
 
 const initData = {
   name: '',
@@ -23,7 +24,8 @@ const AddNewLink = ({
   loadingSaving,
   handleSaveLinks,
   isModalOpen,
-  setModalOpen
+  setModalOpen,
+  userData
 }) => {
   const [formData, setFormData] = useState(initData)
   const [newLinks, setNewLinks] = useState([])
@@ -119,7 +121,9 @@ const AddNewLink = ({
     <div className="mb-10">
       <div
         onClick={() => setModalOpen(true)}
-        className="my-6 w-full text-center  border-[1px] py-3 rounded-lg text-white bg-gray-600 hover:scale-[102%] cursor-pointer transition-all duration-300"
+        className={`my-6 w-full text-center  border-[1px] py-3 rounded-lg text-white ${getThemeColor(
+          userData?.theme
+        )} hover:scale-[102%] cursor-pointer transition-all duration-300`}
       >
         {isModalOpen ? 'Cancel' : 'Add new link +'}
       </div>

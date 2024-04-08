@@ -2,12 +2,6 @@
 const nextConfig = {
   reactStrictMode: true,
   // other properties...
-  remotePatterns: [
-    {
-      protocol: 'http',
-      hostname: '**'
-    }
-  ],
   images: {
     domains: [
       'images.unsplash.com',
@@ -18,6 +12,12 @@ const nextConfig = {
       'static.wikia.nocookie.net',
       'linkverse.onrender.com',
       'linkversee.netlify.app'
+    ],
+    remotePatterns: [
+      {
+        protocol: 'http',
+        hostname: '**'
+      }
     ]
   }
 }

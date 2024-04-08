@@ -12,7 +12,7 @@ import NotFoundProfile from '../../components/profile/NotFoundProfile'
 import AddNewLink from '../../components/profile/AddNewLink'
 import { updateProfile } from '../../server-functions/profile/updateProfile'
 import SettingsComponent from '../../components/profile/settings/SettingsComponent'
-import { getThemeColor } from '../../utils'
+import { getThemeBackgroundColor } from '../../utils'
 
 const UserProfile = () => {
   const router = useRouter()
@@ -194,7 +194,7 @@ const UserProfile = () => {
   return (
     <div className="flex w-screen overflow-hidden">
       <div
-        className={`${getThemeColor(
+        className={`${getThemeBackgroundColor(
           userData?.theme
         )} flex-1 h-screen flex justify-center overflow-hidden`}
       >
@@ -229,6 +229,7 @@ const UserProfile = () => {
                             key={index}
                             index={index}
                             item={item}
+                            userData={userData}
                             activity={activity}
                             handleInputChange={handleInputChange}
                             handleClickDot={handleClickDot}
@@ -240,6 +241,7 @@ const UserProfile = () => {
                     {!(activity.editModeLinks || activity.editModeProfile) && (
                       <AddNewLink
                         links={links}
+                        userData={userData}
                         loadingSaving={loadingSaving}
                         isModalOpen={isModalOpen}
                         setModalOpen={setModalOpen}

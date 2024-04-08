@@ -10,9 +10,11 @@ const ProfilePhotoComponent = ({ activity, token, setRender }) => {
   const [isModalOpen, setModalOpen] = useState(false)
   const fileInputRef = useRef(null)
   const [imageUploading, setImageUploading] = useState(false)
+  const [isImageAvailable, setImageAvailable] = useState(true)
 
   const handleButtonClick = () => {
-    fileInputRef.current.click()
+    alert('Feature not available at the moment.')
+    // fileInputRef.current.click()
   }
   const handleImageChange = (event) => {
     const file = event.target.files[0]
@@ -58,17 +60,42 @@ const ProfilePhotoComponent = ({ activity, token, setRender }) => {
     <div className="w-full flex justify-center mt-10 relative">
       <div className="rounded-full">
         {activity && activity?.userData && activity?.userData?.profile_photo ? (
+          <>
+            {isImageAvailable ? (
+              <Image
+                src={`${process.env.NEXT_PUBLIC_API_URL}${activity?.userData?.profile_photo}`}
+                alt="Link logo"
+                priority
+                width={80}
+                height={80}
+                className="w-40 h-40 rounded-full"
+                style={{ objectFit: 'cover' }}
+                onError={() => setImageAvailable(false)}
+              />
+            ) : (
+              <Image
+                src="/user.png"
+                alt="User Profile"
+                priority
+                width={80}
+                height={80}
+                className="w-40 h-40 rounded-full"
+                style={{ objectFit: 'cover' }}
+                onError={() => setImageAvailable(false)}
+              />
+            )}
+          </>
+        ) : (
           <Image
-            src={`${process.env.NEXT_PUBLIC_API_URL}${activity?.userData?.profile_photo}`}
-            alt="Link logo"
+            src="/user.png"
+            alt="User Profile"
             priority
             width={80}
             height={80}
             className="w-40 h-40 rounded-full"
             style={{ objectFit: 'cover' }}
+            onError={() => setImageAvailable(false)}
           />
-        ) : (
-          <div className="w-40 h-40 bg-gray-300 rounded-full"></div>
         )}
       </div>
       <div

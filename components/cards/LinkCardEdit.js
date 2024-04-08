@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { IoLink, IoClose, IoShareOutline } from 'react-icons/io5'
+import { getThemeColor } from '../../utils'
 
 const LinkCardEdit = ({
   item,
@@ -9,7 +10,8 @@ const LinkCardEdit = ({
   handleInputChange,
   handleClickDot,
   renderLinView,
-  handleDeleteLink
+  handleDeleteLink,
+  userData
 }) => {
   const [isLinkView, setLinkView] = useState(false)
 
@@ -25,10 +27,11 @@ const LinkCardEdit = ({
 
   return (
     <div
+      key={userData?.theme}
       onClick={(e) => handleExternalLinkClick(e, item)}
-      className={`flex justify-between items-center my-6 w-full flex-1 border-[1px] p-2 rounded-lg text-white bg-gray-600 ${
+      className={`flex justify-between items-center my-6 w-full flex-1 border-[1px] p-2 rounded-lg text-white ${
         activity.editModeLinks ? '' : 'hover:scale-[102%] cursor-pointer'
-      } transition-all duration-300`}
+      } transition-all duration-300 ${getThemeColor(userData?.theme)}`}
     >
       {item.logo ? (
         <Image

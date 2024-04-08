@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { Button } from '../components/button/Button'
 import { MdOutlineAddLink } from 'react-icons/md'
 import { getUser } from '../server-functions/profile/getUser'
-import { getThemeColor } from '../utils'
+import { getThemeBackgroundColor } from '../utils'
 
 const UserProfile = ({ userData }) => {
   const router = useRouter()
@@ -16,7 +16,7 @@ const UserProfile = ({ userData }) => {
 
   return (
     <div
-      className={` ${getThemeColor(
+      className={` ${getThemeBackgroundColor(
         userData?.theme
       )}  w-screen h-screen flex justify-center overflow-hidden`}
     >
