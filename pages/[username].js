@@ -5,10 +5,12 @@ import { Button } from '../components/button/Button'
 import { MdOutlineAddLink } from 'react-icons/md'
 import { getUser } from '../server-functions/profile/getUser'
 import { getThemeBackgroundColor } from '../utils'
+import { useState } from 'react'
 
 const UserProfile = ({ userData }) => {
   const router = useRouter()
   const { username } = router.query
+  const [isImageAvailable, setImageAvailable] = useState(true)
 
   const handleClickDot = (e) => {
     e.stopPropagation()
@@ -26,16 +28,30 @@ const UserProfile = ({ userData }) => {
           <div>
             <div className="w-full flex justify-center mt-10">
               {userData && userData?.profile_photo ? (
-                <Image
-                  src={`${process.env.NEXT_PUBLIC_API_URL}${userData?.profile_photo}`}
-                  alt=""
-                  placeholder="blur"
-                  blurDataURL={`${process.env.NEXT_PUBLIC_API_URL}${userData?.profile_photo}`}
-                  width={80}
-                  height={80}
-                  className="w-40 h-40 rounded-full bg-gray-200"
-                  style={{ objectFit: 'cover' }}
-                />
+                <>
+                  {isImageAvailable ? (
+                    <Image
+                      src={`${process.env.NEXT_PUBLIC_API_URL}${userData?.profile_photo}`}
+                      alt=""
+                      placeholder="blur"
+                      blurDataURL={`${process.env.NEXT_PUBLIC_API_URL}${userData?.profile_photo}`}
+                      width={80}
+                      height={80}
+                      className="w-40 h-40 rounded-full bg-gray-200"
+                      style={{ objectFit: 'cover' }}
+                      onError={() => setImageAvailable(false)}
+                    />
+                  ) : (
+                    <Image
+                      src="/user.png"
+                      alt=""
+                      width={80}
+                      height={80}
+                      className="w-40 h-40 rounded-full bg-gray-200"
+                      style={{ objectFit: 'cover' }}
+                    />
+                  )}
+                </>
               ) : (
                 <div className="w-40 h-40 bg-gray-300 rounded-full animate-pulse"></div>
               )}
