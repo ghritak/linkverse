@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <div className={styles.container} style={{ backgroundColor: 'white' }}>
       <Head>
-        <title>Create Next App</title>
+        <title>Linkverse</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 

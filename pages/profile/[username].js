@@ -47,6 +47,17 @@ const UserProfile = () => {
     }
   }, [username, activity.reRender])
 
+  useEffect(() => {
+    const originalTitle = document.title // Save the original title
+
+    document.title = 'ghritak'
+
+    return () => {
+      // Restore the original title when the component unmounts
+      document.title = originalTitle
+    }
+  }, [])
+
   const fetchUserData = async (token) => {
     if (username) {
       try {

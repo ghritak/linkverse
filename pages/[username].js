@@ -5,12 +5,20 @@ import { Button } from '../components/button/Button'
 import { MdOutlineAddLink } from 'react-icons/md'
 import { getUser } from '../server-functions/profile/getUser'
 import { getThemeBackgroundColor } from '../utils'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 const UserProfile = ({ userData }) => {
   const router = useRouter()
   const { username } = router.query
   const [isImageAvailable, setImageAvailable] = useState(true)
+
+  useEffect(() => {
+    if (userData) {
+      document.title = username
+    } else {
+      document.title = 'Not Found'
+    }
+  }, [username, userData])
 
   const handleClickDot = (e) => {
     e.stopPropagation()
