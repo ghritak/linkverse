@@ -14,6 +14,7 @@ const LoginPage = () => {
   })
   const [loading, setLoading] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
+  document.title = 'Log in'
 
   const handleInputChange = (e) => {
     if (errorMessage) setErrorMessage('')
