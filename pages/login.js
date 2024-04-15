@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Input from '../components/input/Input'
 import Image from 'next/image'
 import { Button } from '../components/button/Button'
@@ -14,9 +14,12 @@ const LoginPage = () => {
   })
   const [loading, setLoading] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
-  if (document && document?.title) {
-    document.title = 'Log in'
-  }
+
+  useEffect(() => {
+    if (document && document?.title) {
+      document.title = 'Log in'
+    }
+  }, [])
 
   const handleInputChange = (e) => {
     if (errorMessage) setErrorMessage('')

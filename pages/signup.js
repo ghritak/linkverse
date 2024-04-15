@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import LinearLoading from '../components/loading/LinearLoading'
 import { useRouter } from 'next/router'
@@ -22,9 +22,11 @@ const SignupPage = () => {
   const [isCodeSent, setCodeSent] = useState(false)
   const [otp, setOtp] = useState('')
 
-  if (document && document?.title) {
-    document.title = 'Sign up'
-  }
+  useEffect(() => {
+    if (document && document?.title) {
+      document.title = 'Sign up'
+    }
+  }, [])
 
   const handleInputChange = (e) => {
     if (errorMessage) setErrorMessage('')
