@@ -1,38 +1,27 @@
-import Image from 'next/image'
 import { useState, useRef, useEffect } from 'react'
+import Image from 'next/image'
 import { FaChevronDown, FaSearch } from 'react-icons/fa'
 
-interface CustomDropdownProps<T> {
-  options: T[]
-  onSelect: (selectedOption: T) => void
-  search?: boolean
-  placeholder?: string
-  displayKey?: keyof T
-  displayIcon: string
-  backgroundColor: string
-  value?: T | null
-}
-
-const CustomDropdown = <T extends string | Record<string, any>>({
+const CustomDropdown = ({
   options,
   onSelect,
   search = false,
   placeholder = 'Select an option',
-  displayKey = 'name' as keyof T,
+  displayKey = 'name',
   displayIcon,
   backgroundColor,
   value = null
-}: CustomDropdownProps<T>) => {
-  const [selectedOption, setSelectedOption] = useState<T | null>(null)
+}) => {
+  const [selectedOption, setSelectedOption] = useState(null)
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
   const [searchTerm, setSearchTerm] = useState('')
-  const dropdownRef = useRef<HTMLDivElement>(null)
+  const dropdownRef = useRef(null)
 
   useEffect(() => {
     setSelectedOption(value)
   }, [value])
 
-  const handleSelect = (option: T) => {
+  const handleSelect = (option) => {
     setSelectedOption(option)
     onSelect(option)
     closeDropdown()
@@ -43,21 +32,17 @@ const CustomDropdown = <T extends string | Record<string, any>>({
     setSearchTerm('')
   }
 
-  const handleClickOutside = (event: MouseEvent) => {
-    if (
-      dropdownRef.current &&
-      !dropdownRef.current.contains(event.target as Node)
-    ) {
+  const handleClickOutside = (event) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
       closeDropdown()
     }
   }
 
-  const getOptionLabel = (option: T): string => {
+  const getOptionLabel = (option) => {
     if (typeof option === 'string') {
       return option
     }
-
-    return (option[displayKey] as string) || ''
+    return option[displayKey] || ''
   }
 
   const filteredOptions = options.filter((option) =>
@@ -95,7 +80,6 @@ const CustomDropdown = <T extends string | Record<string, any>>({
             }}
           >
             {selectedOption ? getOptionLabel(selectedOption) : placeholder}
-
             <FaChevronDown className="ml-2 mt-1" />
           </button>
         </span>
