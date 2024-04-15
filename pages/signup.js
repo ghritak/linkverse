@@ -21,7 +21,10 @@ const SignupPage = () => {
   const [errorMessage, setErrorMessage] = useState('')
   const [isCodeSent, setCodeSent] = useState(false)
   const [otp, setOtp] = useState('')
-  document.title = 'Sign up'
+
+  if (document && document?.title) {
+    document.title = 'Sign up'
+  }
 
   const handleInputChange = (e) => {
     if (errorMessage) setErrorMessage('')

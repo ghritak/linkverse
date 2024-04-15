@@ -13,10 +13,10 @@ const UserProfile = ({ userData }) => {
   const [isImageAvailable, setImageAvailable] = useState(true)
 
   useEffect(() => {
-    if (userData) {
+    if (userData && document && document?.title) {
       document.title = username
     } else {
-      document.title = 'Not Found'
+      if (document && document?.title) document.title = 'Not Found'
     }
   }, [username, userData])
 
