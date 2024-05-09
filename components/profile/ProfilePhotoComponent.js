@@ -5,7 +5,7 @@ import Modal from '../modal/Modal'
 import { Button } from '../button/Button'
 import { updateProfilePicture } from '../../server-functions/profile/updateProfilePicture'
 
-const ProfilePhotoComponent = ({ activity, token, setRender }) => {
+const ProfilePhotoComponent = ({ activity, setActivity, token }) => {
   const [selectedImage, setSelectedImage] = useState(null)
   const [isModalOpen, setModalOpen] = useState(false)
   const fileInputRef = useRef(null)
@@ -13,8 +13,8 @@ const ProfilePhotoComponent = ({ activity, token, setRender }) => {
   const [isImageAvailable, setImageAvailable] = useState(true)
 
   const handleButtonClick = () => {
-    alert('Feature not available at the moment.')
-    // fileInputRef.current.click()
+    // alert('Feature not available at the moment.')
+    fileInputRef.current.click()
   }
   const handleImageChange = (event) => {
     const file = event.target.files[0]
@@ -35,14 +35,9 @@ const ProfilePhotoComponent = ({ activity, token, setRender }) => {
       try {
         const formData = new FormData()
         formData.append('profile_photo', selectedImage[0])
-        const res = await updateProfilePicture(
-          activity?.userData.username,
-          token,
-          formData
-        )
-        console.log(res)
+        await updateProfilePicture(activity?.userData.username, token, formData)
         setModalOpen(false)
-        setRender((prev) => prev + 1)
+        setActivity((prev) => ({ ...prev, reRender: prev.reRender + 1 }))
       } catch (error) {
         console.log(error)
       } finally {
