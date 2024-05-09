@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from 'react'
 import { BsThreeDotsVertical } from 'react-icons/bs'
 import { FiEdit, FiLogOut } from 'react-icons/fi'
@@ -55,6 +56,7 @@ const MenuComponent = ({
           </button>
         )}
       </div>
+
       <div
         ref={menuRef}
         className={`absolute top-16 right-10 md:right-24 text-black transition-opacity duration-200 bg-white rounded-md z-20 ${

@@ -43,15 +43,11 @@ const UserData = (props) => {
               disabled={!activity.editModeProfile}
               value={userData.name}
               name="name"
-              className={`outline-none bg-transparent font-semibold w-full rounded-sm transition-transform duration-300  ${
-                activity.editModeProfile
-                  ? 'border-b-[1px]'
-                  : 'text-center pb-[1px]'
-              }`}
+              className="outline-none bg-transparent font-medium w-full rounded-sm transition-transform duration-300 border-b-[1px]"
               onChange={handleInputChange}
             />
           ) : (
-            <p className="font-semibold">{userData.name}</p>
+            <p className="font-medium">{userData.name}</p>
           )}
         </div>
         <div className="text-center mt-3">
@@ -61,11 +57,7 @@ const UserData = (props) => {
               disabled={!activity.editModeProfile}
               value={userData.bio}
               name="bio"
-              className={`outline-none bg-transparent w-full rounded-sm transition-transform duration-300  ${
-                activity.editModeProfile
-                  ? 'border-b-[1px]'
-                  : 'text-center pb-[1px]'
-              }`}
+              className="outline-none bg-transparent w-full rounded-sm transition-transform duration-300 border-b-[1px]"
               onChange={handleInputChange}
             />
           ) : (

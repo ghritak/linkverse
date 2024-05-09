@@ -226,7 +226,29 @@ const UserProfile = () => {
                     setActivity={setActivity}
                   />
 
-                  <div className="pt-10 pb-20">
+                  <div
+                    className={`flex-1 w-full bottom-4 md:bottom-10 left-0 px-10 mt-6 transition-opacity duration-200 ${
+                      activity.editModeProfile
+                        ? 'opacity-100 visible'
+                        : 'opacity-0 invisible'
+                    }`}
+                  >
+                    <Button
+                      loading={loadingSaving}
+                      onClick={() => handleSaveProfile(userData)}
+                      className={'w-full h-12'}
+                    >
+                      Save Profile
+                    </Button>
+                  </div>
+
+                  <div
+                    className={`pb-10 transition-all duration-300 ${
+                      activity.editModeProfile
+                        ? 'translate-y-0'
+                        : '-translate-y-12'
+                    }`}
+                  >
                     {links &&
                       links.map((item, index) => {
                         return (
@@ -263,17 +285,6 @@ const UserProfile = () => {
                       className={'w-full h-12'}
                     >
                       Save Links
-                    </Button>
-                  </div>
-                )}
-                {activity.editModeProfile && (
-                  <div className="fixed flex-1 w-full bottom-4 md:bottom-10 left-0 px-10 sm:px-20 ">
-                    <Button
-                      loading={loadingSaving}
-                      onClick={() => handleSaveProfile(userData)}
-                      className={'w-full h-12'}
-                    >
-                      Save Profile
                     </Button>
                   </div>
                 )}
