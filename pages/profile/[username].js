@@ -52,7 +52,6 @@ const UserProfile = () => {
       try {
         const data = await getUserProfile(username, token)
         const background = getThemeBackgroundColor(data?.theme)
-        console.log(background)
         setActivity((prev) => ({
           ...prev,
           userData: data,
