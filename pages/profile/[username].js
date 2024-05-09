@@ -198,7 +198,7 @@ const UserProfile = () => {
   return (
     <div className="flex w-screen">
       <div
-        className={`flex-1 h-screen flex justify-center transition-all duration-300 ${
+        className={`flex-1 min-h-screen flex justify-center transition-all duration-300 ${
           activity.settingsVisible
             ? 'w-0 -translate-x-96 lg:translate-x-0 lg:w-full'
             : 'w-full translate-x-0'
