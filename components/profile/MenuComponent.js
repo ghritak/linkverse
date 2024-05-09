@@ -50,7 +50,7 @@ const MenuComponent = ({
         ) : (
           <button
             onClick={handleCancel}
-            className="hover:bg-white z-50 text-white z-50 hover:text-black rounded-2xl hover:bg-transparent border-[1px] transition-all duration-300 px-4 py-1"
+            className="hover:bg-white z-50 text-white hover:text-black rounded-2xl hover:bg-transparent border-[1px] transition-all duration-300 px-4 py-1"
           >
             Cancel
           </button>

@@ -4,6 +4,7 @@ import { BsViewList } from 'react-icons/bs'
 import CustomLoader from '../../loading/CustomLoader'
 import { themeCodes } from '../../../constants/themeCodes'
 import { changeTheme } from '../../../server-functions/profile/changeTheme'
+import { IoClose } from 'react-icons/io5'
 
 const ChangeTheme = ({ token, userData, setActivity }) => {
   const [isExpanded, setExpanded] = useState(false)
@@ -29,6 +30,18 @@ const ChangeTheme = ({ token, userData, setActivity }) => {
   }
   return (
     <div className="border-b-[1px] border-gray-700 overflow-hidden">
+      <div className="flex items-center overflow-hidden justify-between p-10 border-b-[1px] py-6 border-gray-700 transition-all duration-300">
+        <h1 className="text-3xl font-semibold">Settings</h1>
+        <div
+          onClick={() =>
+            setActivity((prev) => ({ ...prev, settingsVisible: false }))
+          }
+          className="cursor-pointer hover:bg-gray-700 transition-all duration-300 rounded-full p-2"
+        >
+          <IoClose color="white" size={30} />
+        </div>
+      </div>
+
       <div
         onClick={() => setExpanded(!isExpanded)}
         className="h-20 px-8 flex items-center justify-between md:hover:bg-gray-800 cursor-pointer active:bg-gray-800 transition-all duration-300"

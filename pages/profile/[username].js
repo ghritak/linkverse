@@ -198,7 +198,11 @@ const UserProfile = () => {
   return (
     <div className="flex w-screen">
       <div
-        className="flex-1 min-h-screen flex justify-center"
+        className={`flex-1 h-screen flex justify-center transition-all duration-300 ${
+          activity.settingsVisible
+            ? 'w-0 -translate-x-96 lg:translate-x-0 lg:w-full'
+            : 'w-full translate-x-0'
+        }`}
         style={{
           background: getThemeBackgroundColor(activity?.userData?.theme)
         }}
@@ -300,9 +304,10 @@ const UserProfile = () => {
       <div
         className={`${
           activity.settingsVisible ? 'w-full lg:w-[400px] xl:w-[600px]' : 'w-0'
-        } h-screen bg-[#1a1f27] transition-all duration-300`}
+        }  bg-[#1a1f27] transition-all duration-300 z-50`}
       >
         <SettingsComponent
+          activity={activity}
           setActivity={setActivity}
           token={token}
           userData={userData}
