@@ -4,6 +4,7 @@ export const getUserProfile = async (username, token) => {
       `${process.env.NEXT_PUBLIC_API_URL}/api/link/auth?username=${username}`,
       {
         method: 'GET',
+        cache: 'no-store',
         headers: {
           'Content-Type': 'application/json',
           Authorization: token

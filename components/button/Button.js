@@ -13,7 +13,7 @@ export const Button = ({
 }) => {
   const classes = twMerge(`
   bg-blue-500 text-white py-2 px-6 rounded-lg transition-all duration-300 ${
-    disabled || loading ? 'opacity-50' : 'hover:bg-blue-600 '
+    disabled || loading ? 'bg-blue-400' : 'hover:bg-blue-600 '
   } ${className ?? ''}
   `)
   return (

@@ -267,7 +267,7 @@ const UserProfile = () => {
                   </div>
                 )}
                 {activity.editModeProfile && (
-                  <div className="absolute flex-1 w-full bottom-4 md:bottom-10 left-0 px-10 sm:px-20 ">
+                  <div className="fixed flex-1 w-full bottom-4 md:bottom-10 left-0 px-10 sm:px-20 ">
                     <Button
                       loading={loadingSaving}
                       onClick={() => handleSaveProfile(userData)}
