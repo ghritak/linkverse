@@ -53,7 +53,9 @@ const ChangeTheme = ({ token, userData, setActivity }) => {
       </div>
       <div
         className={` transition-all duration-300 mx-8 ${
-          isExpanded ? 'h-[510px]' : 'h-0'
+          isExpanded
+            ? 'h-[520px] xs:h-[400px] md:h-[250px] lg:h-[510px]'
+            : 'h-0'
         }`}
       >
         <div className="py-5">
@@ -62,7 +64,7 @@ const ChangeTheme = ({ token, userData, setActivity }) => {
               <div
                 key={item.id}
                 onClick={() => setThemeCode(item.id)}
-                className={`w-24 h-44 mr-6 mb-6 rounded-lg cursor-pointer hover:scale-95 transition-transform duration-300 ${
+                className={`w-16 h-28 xl:w-24 xl:h-44 mr-6 mb-6 rounded-lg cursor-pointer hover:scale-95 transition-transform duration-300 ${
                   item.id === themeCode ? 'border-2 border-blue-500' : ''
                 }`}
                 style={{ background: item.backgroundColor }}
