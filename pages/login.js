@@ -1,10 +1,11 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import Input from '../components/input/Input'
 import Image from 'next/image'
 import { Button } from '../components/button/Button'
 import LinearLoading from '../components/loading/LinearLoading'
 import { login } from '../server-functions/auth/login'
 import { useRouter } from 'next/router'
+import Head from 'next/head'
 
 const LoginPage = () => {
   const router = useRouter()
@@ -14,12 +15,6 @@ const LoginPage = () => {
   })
   const [loading, setLoading] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
-
-  useEffect(() => {
-    if (document && document?.title) {
-      document.title = 'Log in'
-    }
-  }, [])
 
   const handleInputChange = (e) => {
     if (errorMessage) setErrorMessage('')
@@ -50,6 +45,9 @@ const LoginPage = () => {
 
   return (
     <div className="w-screen h-screen flex justify-center items-center bg-[#f0f4f9]">
+      <Head>
+        <title>Log in</title>
+      </Head>
       <div className="bg-white w-[1000px] md:h-[380px] mx-8 sm:mx-[100px] rounded-3xl overflow-hidden">
         {loading ? <LinearLoading /> : <div className="h-1" />}
         <div className={`md:grid grid-cols-2 ${loading ? 'opacity-50' : ''} `}>

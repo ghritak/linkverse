@@ -5,20 +5,13 @@ import { Button } from '../components/button/Button'
 import { MdOutlineAddLink } from 'react-icons/md'
 import { getUser } from '../server-functions/profile/getUser'
 import { getThemeBackgroundColor } from '../utils'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
+import Head from 'next/head'
 
 const UserProfile = ({ userData }) => {
   const router = useRouter()
   const { username } = router.query
   const [isImageAvailable, setImageAvailable] = useState(true)
-
-  useEffect(() => {
-    if (userData && document && document?.title) {
-      document.title = username
-    } else {
-      if (document && document?.title) document.title = 'Not Found'
-    }
-  }, [username, userData])
 
   const handleClickDot = (e) => {
     e.stopPropagation()
@@ -31,6 +24,9 @@ const UserProfile = ({ userData }) => {
         background: getThemeBackgroundColor(userData?.theme)
       }}
     >
+      <Head>
+        <title>{userData?.name}</title>
+      </Head>
       <div className="relative max-w-3xl flex flex-col md:min-w-[700px] w-full px-8 md:px-20">
         {userData ? (
           <div>

@@ -8,6 +8,7 @@ import VerificationCode from '../components/auth/VerificationCode'
 import { sendOtp } from '../server-functions/auth/sendOtp'
 import { verifyOtp } from '../server-functions/auth/verifyOtp'
 import { checkUserExist } from '../server-functions/auth/checkUserExist'
+import Head from 'next/head'
 
 const SignupPage = () => {
   const router = useRouter()
@@ -21,12 +22,6 @@ const SignupPage = () => {
   const [errorMessage, setErrorMessage] = useState('')
   const [isCodeSent, setCodeSent] = useState(false)
   const [otp, setOtp] = useState('')
-
-  useEffect(() => {
-    if (document && document?.title) {
-      document.title = 'Sign up'
-    }
-  }, [])
 
   const handleInputChange = (e) => {
     if (errorMessage) setErrorMessage('')
@@ -76,6 +71,9 @@ const SignupPage = () => {
 
   return (
     <div className="w-screen h-screen flex justify-center items-center bg-[#f0f4f9]">
+      <Head>
+        <title>Sign up</title>
+      </Head>
       <div
         className={`bg-white w-[1000px] ${
           !isCodeSent ? 'md:h-[480px]' : 'md:h-[340px]'
