@@ -30,7 +30,7 @@ const LinkCard = ({ item, handleClickDot, userData }) => {
       >
         {item.logo ? (
           <Image
-            src={item.logo}
+            src={`${process.env.NEXT_PUBLIC_API_URL}${item?.logo}`}
             alt="Link logo"
             width={100}
             height={100}
