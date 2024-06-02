@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import CreateCard from './CreateCard'
 
 const Footer = () => {
@@ -11,8 +12,14 @@ const Footer = () => {
       </div>
       <div className="my-10 text-white">
         <div>
-          © {new Date().getFullYear()} Linkverse | Developed by Ghritak Jyoti
-          Kalita
+          © {new Date().getFullYear()} Linkverse | Developed by{' '}
+          <Link
+            href={'https://ghritak.github.io'}
+            target="blank"
+            className="text-blue-400 hover:text-blue-500 transition-all duration-300"
+          >
+            Ghritak Jyoti Kalita
+          </Link>
         </div>
       </div>
     </div>
