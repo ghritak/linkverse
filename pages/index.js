@@ -1,53 +1,47 @@
 import Head from 'next/head'
 import Navbar from '../components/navbar/Navbar'
+import Image from 'next/image'
 
 export default function Home() {
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center">
+    <div className="flex flex-col items-center bg-gradient-to-tr from-gray-500 via-gray-700 to-black">
       <Head>
         <title>Linkverse</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar />
-      <main className="flex-1 flex flex-col items-center justify-center text-white mt-20">
-        <h1 className="text-5xl font-bold text-center">
-          Welcome to Our Product
-        </h1>
-        <p className="mt-4 text-2xl text-center">
-          Discover the features and benefits of our amazing product.
-        </p>
-        <div className="mt-8 flex flex-col md:flex-row items-center h-screen">
-          {/* <img
-            src="/product-image.jpg"
-            alt="Product Image"
-            className="w-64 h-auto mb-8 md:mb-0 md:mr-8"
-          /> */}
-          <div className="max-w-md">
-            <h2 className="text-3xl font-semibold">Product Name</h2>
-            <p className="mt-4 text-lg">
-              Our product offers exceptional features and outstanding
-              performance.
-            </p>
-            <button className="mt-4 px-6 py-2 bg-blue-500 text-white text-lg rounded hover:bg-blue-600">
-              Learn More
-            </button>
-          </div>
-        </div>
-        <div className="mt-8 flex flex-col md:flex-row items-center h-screen w-screen bg-gray-700">
-          {/* <img
-            src="/product-image.jpg"
-            alt="Product Image"
-            className="w-64 h-auto mb-8 md:mb-0 md:mr-8"
-          /> */}
-          <div className="max-w-md">
-            <h2 className="text-3xl font-semibold">Product Name</h2>
-            <p className="mt-4 text-lg">
-              Our product offers exceptional features and outstanding
-              performance.
-            </p>
-            <button className="mt-4 px-6 py-2 bg-blue-500 text-white text-lg rounded hover:bg-blue-600">
-              Learn More
-            </button>
+      <main className="flex-1 flex flex-col items-center justify-center mt-10 text-white">
+        <div className="flex justify-center items-center h-screen w-screen">
+          <div className="flex flex-row w-[86%]">
+            <div className="w-1/2 space-y-8">
+              <h1 className="text-7xl font-bold">
+                Everything you are. In one, simple link in bio.
+              </h1>
+              <p>
+                Join 50M+ people using Linktree for their link in bio. One link
+                to help you share everything you create, curate and sell from
+                your Instagram, TikTok, Twitter, YouTube and other social media
+                profiles.
+              </p>
+              <div className="flex items-center space-x-10">
+                <div className="bg-gray-100 text-gray-600 p-6 rounded-full flex justify-center items-center">
+                  <div className="">linkverse.com/</div>
+                  <input
+                    placeholder="yourname"
+                    className="bg-transparent outline-none"
+                  />
+                </div>
+                <button>Claim your linkverse</button>
+              </div>
+            </div>
+            <div className="w-1/2 flex justify-center">
+              <Image
+                src={require('../public/link.png')}
+                alt="logo"
+                width={500}
+                height={500}
+              />
+            </div>
           </div>
         </div>
       </main>
