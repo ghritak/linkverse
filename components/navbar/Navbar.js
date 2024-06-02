@@ -4,7 +4,7 @@ import { IoLogInOutline } from 'react-icons/io5'
 
 const Navbar = () => {
   return (
-    <nav className="sticky w-[88%] top-0 pt-10 rounded-bl-custom rounded-br-custom z-50  backdrop-blur-sm">
+    <nav className="sticky w-[88%] top-0 pt-4 sm:pt-10 rounded-bl-custom rounded-br-custom z-50  backdrop-blur-sm">
       <div className="flex items-center justify-between bg-white p-2 md:p-4 rounded-full">
         <div className="text-lg md:text-2xl font-medium">
           <Link href="/" className="flex items-center ml-2 md:ml-4">

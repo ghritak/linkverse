@@ -13,16 +13,20 @@ const Footer = () => {
         </div>
       </div>
       <div className="my-10 text-white">
-        <div>
-          © {new Date().getFullYear()} Linkverse | Developed by{' '}
-          <Link
-            href={'https://ghritak.github.io'}
-            target="blank"
-            className="text-blue-400 hover:text-blue-500 transition-all duration-300"
-          >
-            Ghritak Jyoti Kalita
-          </Link>
-        </div>
+        <span className="flex flex-col-reverse sm:flex-row justify-center items-center">
+          <span>© {new Date().getFullYear()} Linkverse</span>
+          <span className="mx-1 hidden sm:block">|</span>
+          <span>
+            Developed by{' '}
+            <Link
+              href={'https://ghritak.github.io'}
+              target="blank"
+              className="text-blue-400 hover:text-blue-500 transition-all duration-300"
+            >
+              Ghritak Jyoti Kalita
+            </Link>
+          </span>
+        </span>
       </div>
     </div>
   )
