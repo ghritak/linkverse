@@ -1,64 +1,57 @@
 import Head from 'next/head'
-import styles from '../styles/Home.module.css'
+import Navbar from '../components/navbar/Navbar'
 
 export default function Home() {
   return (
-    <div className={styles.container} style={{ backgroundColor: 'white' }}>
+    <div className="min-h-screen flex flex-col items-center justify-center">
       <Head>
         <title>Linkverse</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-      <main>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
+      <Navbar />
+      <main className="flex-1 flex flex-col items-center justify-center text-white mt-20">
+        <h1 className="text-5xl font-bold text-center">
+          Welcome to Our Product
         </h1>
-
-        <p className={styles.description}>
-          Get started by editing <code>pages/index.js</code>
+        <p className="mt-4 text-2xl text-center">
+          Discover the features and benefits of our amazing product.
         </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/canary/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
+        <div className="mt-8 flex flex-col md:flex-row items-center h-screen">
+          {/* <img
+            src="/product-image.jpg"
+            alt="Product Image"
+            className="w-64 h-auto mb-8 md:mb-0 md:mr-8"
+          /> */}
+          <div className="max-w-md">
+            <h2 className="text-3xl font-semibold">Product Name</h2>
+            <p className="mt-4 text-lg">
+              Our product offers exceptional features and outstanding
+              performance.
             </p>
-          </a>
+            <button className="mt-4 px-6 py-2 bg-blue-500 text-white text-lg rounded hover:bg-blue-600">
+              Learn More
+            </button>
+          </div>
+        </div>
+        <div className="mt-8 flex flex-col md:flex-row items-center h-screen w-screen bg-gray-700">
+          {/* <img
+            src="/product-image.jpg"
+            alt="Product Image"
+            className="w-64 h-auto mb-8 md:mb-0 md:mr-8"
+          /> */}
+          <div className="max-w-md">
+            <h2 className="text-3xl font-semibold">Product Name</h2>
+            <p className="mt-4 text-lg">
+              Our product offers exceptional features and outstanding
+              performance.
+            </p>
+            <button className="mt-4 px-6 py-2 bg-blue-500 text-white text-lg rounded hover:bg-blue-600">
+              Learn More
+            </button>
+          </div>
         </div>
       </main>
-
-      <footer>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel" className={styles.logo} />
-        </a>
-      </footer>
+      <footer></footer>
     </div>
   )
 }

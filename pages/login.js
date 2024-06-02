@@ -44,7 +44,7 @@ const LoginPage = () => {
   }
 
   return (
-    <div className="w-screen h-screen flex justify-center items-center bg-[#f0f4f9]">
+    <main className="w-screen h-screen flex justify-center items-center bg-[#f0f4f9]">
       <Head>
         <title>Log in</title>
       </Head>
@@ -121,7 +121,7 @@ const LoginPage = () => {
           </div>
         </div>
       </div>
-    </div>
+    </main>
   )
 }
 

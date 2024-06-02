@@ -13,6 +13,7 @@ import AddNewLink from '../../components/profile/AddNewLink'
 import { updateProfile } from '../../server-functions/profile/updateProfile'
 import SettingsComponent from '../../components/profile/settings/SettingsComponent'
 import { getThemeBackgroundColor } from '../../utils'
+import Head from 'next/head'
 
 const UserProfile = () => {
   const router = useRouter()
@@ -196,6 +197,9 @@ const UserProfile = () => {
 
   return (
     <div className="flex w-screen">
+      <Head>
+        <title>Profile</title>
+      </Head>
       <div
         className={`flex-1 min-h-screen flex justify-center transition-all duration-300 ${
           activity.settingsVisible

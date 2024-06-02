@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import Image from 'next/image'
 import LinearLoading from '../components/loading/LinearLoading'
 import { useRouter } from 'next/router'
@@ -70,7 +70,7 @@ const SignupPage = () => {
   }
 
   return (
-    <div className="w-screen h-screen flex justify-center items-center bg-[#f0f4f9]">
+    <main className="w-screen h-screen flex justify-center items-center bg-[#f0f4f9]">
       <Head>
         <title>Sign up</title>
       </Head>
@@ -114,7 +114,7 @@ const SignupPage = () => {
           </div>
         </div>
       </div>
-    </div>
+    </main>
   )
 }
 
