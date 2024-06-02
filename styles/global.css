@@ -8,7 +8,18 @@ body {
   margin: 0;
   font-family: Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
     Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-  background-color: black;
+  /* background: linear-gradient(to top bottom, #6b7280, #374151, #000000); */
+  /* background-repeat: no-repeat;
+    background-attachment: fixed; */
+  background: -webkit-gradient(
+      linear,
+      left top,
+      left bottom,
+      from(#5b606b),
+      to(#2f3847)
+    )
+    fixed;
+  background-color: #5b606b;
 }
 
 a {

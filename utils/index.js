@@ -26,3 +26,7 @@ export const getThemeColor = (themeCode) => {
     return 'bg-gray-500'
   }
 }
+
+export const isTouchDevice = () => {
+  return 'ontouchstart' in window || navigator.maxTouchPoints > 0
+}

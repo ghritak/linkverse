@@ -2,10 +2,12 @@ import CreateCard from './CreateCard'
 
 const IntroComponent = () => {
   return (
-    <div className="w-1/2 space-y-8">
+    <div className="lg:w-1/2 w-full md:mt-0 space-y-8">
       <div className="space-y-4">
-        <h1 className="text-7xl font-bold">Linking Your World.</h1>{' '}
-        <h1 className="text-5xl font-bold">One Click, Infinite Connections!</h1>
+        <h1 className="text-xl md:text-7xl font-bold">Linking Your World.</h1>{' '}
+        <h1 className="text-lg md:text-5xl font-bold">
+          One Click, Infinite Connections!
+        </h1>
       </div>
       <p>
         Join the multiverse using Linkverse for your link in bio. One link to

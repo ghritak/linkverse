@@ -6,15 +6,15 @@ import Footer from '../components/home/Footer'
 
 export default function Home() {
   return (
-    <div className="flex flex-col items-center bg-gradient-to-tr from-gray-500 via-gray-700 to-black">
+    <div className="flex flex-col items-center ">
       <Head>
         <title>Linkverse</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar />
       <main className="flex-1 flex flex-col items-center justify-center  text-white">
-        <div className="flex justify-center items-center h-screen w-screen">
-          <div className="flex flex-row w-[86%]">
+        <div className="flex justify-center items-center min-h-screen w-screen">
+          <div className="flex flex-col lg:flex-row w-[86%] justify-center items-center mt-20">
             <IntroComponent />
             <FlipCard />
           </div>
