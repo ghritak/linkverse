@@ -2,7 +2,7 @@ import CreateCard from './CreateCard'
 
 const IntroComponent = () => {
   return (
-    <div className="lg:w-1/2 w-full md:mt-0 space-y-8">
+    <div className="lg:w-1/2 w-full space-y-8">
       <div className="space-y-4">
         <h1 className="text-xl md:text-7xl font-bold">Linking Your World.</h1>{' '}
         <h1 className="text-lg md:text-5xl font-bold">
