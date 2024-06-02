@@ -10,6 +10,9 @@ module.exports = {
     extend: {
       screens: {
         xs: '420px'
+      },
+      borderRadius: {
+        custom: '50px'
       }
     }
   },
