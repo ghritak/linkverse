@@ -2,6 +2,7 @@ import Head from 'next/head'
 import Navbar from '../components/navbar/Navbar'
 import FlipCard from '../components/home/FlipCard'
 import IntroComponent from '../components/home/IntroComponent'
+import Footer from '../components/home/Footer'
 
 export default function Home() {
   return (
@@ -15,12 +16,13 @@ export default function Home() {
         <div className="flex justify-center items-center h-screen w-screen">
           <div className="flex flex-row w-[86%]">
             <IntroComponent />
-
             <FlipCard />
           </div>
         </div>
       </main>
-      <footer></footer>
+      <footer>
+        <Footer />
+      </footer>
     </div>
   )
 }

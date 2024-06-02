@@ -24,6 +24,7 @@ const SignupForm = ({
             required
           />
           <Input
+            key={formData.username}
             label="User Name"
             type="text"
             name="username"

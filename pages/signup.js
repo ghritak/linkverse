@@ -1,4 +1,5 @@
-import { useState } from 'react'
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import LinearLoading from '../components/loading/LinearLoading'
 import { useRouter } from 'next/router'
@@ -12,6 +13,8 @@ import Head from 'next/head'
 
 const SignupPage = () => {
   const router = useRouter()
+
+  const { username } = router.query
   const [formData, setFormData] = useState({
     name: '',
     username: '',
@@ -22,6 +25,12 @@ const SignupPage = () => {
   const [errorMessage, setErrorMessage] = useState('')
   const [isCodeSent, setCodeSent] = useState(false)
   const [otp, setOtp] = useState('')
+
+  useEffect(() => {
+    if (username) {
+      setFormData((prev) => ({ ...prev, username: username }))
+    }
+  }, [])
 
   const handleInputChange = (e) => {
     if (errorMessage) setErrorMessage('')
@@ -95,6 +104,7 @@ const SignupPage = () => {
           <div className="col-span-1 h-full flex-1 m-10 md:m-0 md:mt-10 md:mr-10">
             {!isCodeSent ? (
               <SignupForm
+                key={formData}
                 sendVerificationCode={sendVerificationCode}
                 formData={formData}
                 handleInputChange={handleInputChange}

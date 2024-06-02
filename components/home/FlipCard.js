@@ -14,6 +14,7 @@ const FlipCard = () => {
               width={500}
               height={500}
               className="object-cover"
+              priority
             />
           </div>
           <div className="flip-card-back bg-[#3983f5] flex items-center justify-center rounded-3xl">

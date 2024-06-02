@@ -1,9 +1,16 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Color from '../../styles/Colors'
 
 const Input = ({ backgroundColor, color, ...props }) => {
   const inputRef = useRef(null)
   const [isInputFocused, setIsInputFocused] = useState(false)
+
+  useEffect(() => {
+    if (props?.value) {
+      setIsInputFocused(true)
+    }
+  }, [])
+
   const focusInput = () => {
     inputRef.current.focus()
     setIsInputFocused(true)

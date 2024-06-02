@@ -1,4 +1,4 @@
-import { MdAddLink } from 'react-icons/md'
+import CreateCard from './CreateCard'
 
 const IntroComponent = () => {
   return (
@@ -11,19 +11,7 @@ const IntroComponent = () => {
         you share everything you create, curate and sell from your Instagram,
         TikTok, Twitter, YouTube and other social media profiles.
       </p>
-      <div className="flex items-center space-x-6">
-        <div className="bg-gray-100 text-gray-600 p-6 rounded-full flex justify-center items-center">
-          <div className="">linkverse.com/</div>
-          <input
-            placeholder="yourname"
-            className="bg-transparent outline-none"
-          />
-        </div>
-        <button className="py-6 px-8 bg-black hover:bg-slate-800 transition-all duration-300 rounded-full flex items-center">
-          Claim your linkverse
-          <MdAddLink size={24} className="ml-2" />
-        </button>
-      </div>
+      <CreateCard />
     </div>
   )
 }
