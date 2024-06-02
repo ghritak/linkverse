@@ -75,13 +75,19 @@ img {
     transform: rotateY(0deg) rotateX(0deg);
   }
   50% {
-    transform: rotateY(-30deg) rotateX(-6deg);
+    transform: rotateY(-10deg) rotateX(-4deg);
+  }
+  65% {
+    transform: rotateY(-20deg) rotateX(-8deg);
+  }
+  80% {
+    transform: rotateY(-30deg) rotateX(12deg);
   }
 }
 
 .flip-animation {
-  @apply transition-transform duration-1000 ease-in-out;
-  animation: flip 5s infinite;
+  @apply transition-transform duration-100 ease-in-out;
+  animation: flip 15s infinite;
 }
 
 .flip-card-front:hover .flip-animation {

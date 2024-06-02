@@ -8,7 +8,8 @@ const CreateCard = () => {
 
   const handleNavigate = (e) => {
     e.preventDefault()
-    router.push(`/signup?username=${username}`)
+    if (username) router.push(`/signup?username=${username}`)
+    else router.push('/signup')
   }
 
   return (
