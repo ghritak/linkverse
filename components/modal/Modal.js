@@ -7,8 +7,8 @@ const Modal = ({ isOpen, children }) => {
         isOpen ? 'transform opacity-100' : 'transform  opacity-0'
       }`}
     >
-      <div className="absolute bg-black opacity-50 inset-0"></div>
-      <div className="shadow-lg z-50">{children}</div>
+      {/* <div className="absolute bg-black opacity-50 inset-0"></div> */}
+      <div className="z-50">{children}</div>
     </div>
   )
 }

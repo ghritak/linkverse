@@ -201,8 +201,8 @@ const AddNewLink = ({
                     })
                   }}
                 />
-                <div className="flex items-center justify-between mt-4">
-                  <div className="text-sm  flex items-center">
+                <div className="flex flex-col sm:flex-row sm:items-start space-y-4 sm:space-y-0 justify-between mt-4">
+                  <div className="text-sm flex items-center">
                     <Button
                       loading={imageUploading}
                       onClick={handleButtonClick}
@@ -220,8 +220,8 @@ const AddNewLink = ({
                     />
                     <p>Or Upload your own</p>
                   </div>
-                  <div>
-                    <p className="mb-2">Is this a sensitive link</p>
+                  <div className="space-y-2">
+                    <p className="">Is this a sensitive link</p>
                     <Switch
                       isOn={formData.sensitive}
                       handleToggle={() =>

@@ -6,7 +6,7 @@ const AddLinkCard = ({ item, index, handleDeleteLink }) => {
     <div className="flex justify-between items-center my-6 w-full flex-1 border-[1px] p-2 rounded-lg text-white bg-gray-600">
       {item.logo ? (
         <Image
-          src={item.logo}
+          src={`${process.env.NEXT_PUBLIC_API_URL}${item?.logo}`}
           alt="Link logo"
           width={10}
           height={10}

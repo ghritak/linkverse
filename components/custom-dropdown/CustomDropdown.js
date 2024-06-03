@@ -120,7 +120,7 @@ const CustomDropdown = ({
                 <div className="flex items-center">
                   {displayIcon && (
                     <Image
-                      src={option[displayIcon]}
+                      src={`${process.env.NEXT_PUBLIC_API_URL}${option[displayIcon]}`}
                       alt="logo icon"
                       width={64}
                       height={64}
