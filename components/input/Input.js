@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useRef, useState } from 'react'
 import Color from '../../styles/Colors'
 
@@ -10,7 +9,7 @@ const Input = ({ backgroundColor, color, ...props }) => {
     if (props?.value) {
       setIsInputFocused(true)
     }
-  }, [])
+  }, [props.value])
 
   const focusInput = () => {
     inputRef.current.focus()

@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import LinearLoading from '../components/loading/LinearLoading'
@@ -30,7 +29,7 @@ const SignupPage = () => {
     if (username) {
       setFormData((prev) => ({ ...prev, username: username }))
     }
-  }, [])
+  }, [username])
 
   const handleInputChange = (e) => {
     if (errorMessage) setErrorMessage('')
