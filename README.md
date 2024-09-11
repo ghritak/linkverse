@@ -36,6 +36,6 @@ To get started with this project, follow these steps:
 4. **Visit the application in your browser**:
    - Open your web browser and navigate to [http://localhost:3000](http://localhost:4000).
 
-##Contributing
+## Contributing
 
 Contributions are welcome! Please feel free to submit a pull request or open an issue.
