@@ -10,7 +10,8 @@ const nextConfig = {
       'localhost',
       'static.wikia.nocookie.net',
       'linkverse.onrender.com',
-      'linkversee.netlify.app'
+      'linkversee.netlify.app',
+	  'avatars.githubusercontent.com'
     ],
     remotePatterns: [
       {
