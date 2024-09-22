@@ -17,7 +17,7 @@ const FlipCard = () => {
         <div className="flip-card-inner flex">
           <div className="flip-card-front rounded-custom cursor-pointer justify-center items-center flex flip-animation">
             <Image
-              src="https://linkverse.onrender.com/images/profile_photos/profile_photo-1717319579874IMG20230.%20%20%20403151417-01-removebg-preview%20(1)-01%20(1).jpeg"
+              src="https://avatars.githubusercontent.com/u/68119190?v=4"
               alt="logo"
               width={500}
               height={500}
